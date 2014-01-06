@@ -59,7 +59,7 @@
   </transmission>
   <link name="base_link">
     <visual>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0.0 0.0 3.14159" xyz="0.4 0.4 0.0"/>
       <geometry>
         <mesh filename="package://phantomx_arm_description/meshes/visual/base_link.stl" scale="0.04 0.04 0.04"/>
       </geometry>
@@ -147,7 +147,7 @@
   </link>
   <link name="link_4">
     <visual>
-      <origin rpy="0 0 0" xyz="-0.0472 -0.132 0.0"/>
+      <origin rpy="0.0 3.14159 -3.14159" xyz="-0.0472 0.132 0.0"/>
       <geometry>
         <mesh filename="package://phantomx_arm_description/meshes/visual/wrist_link.stl" scale="0.04 0.04 0.04"/>
       </geometry>
@@ -234,7 +234,7 @@
     </inertial>
   </link>
   <joint name="joint_1" type="revolute">
-    <origin rpy="1.570795 6.28318 1.570795" xyz="0.396 0.526 0.35"/>
+    <origin rpy="1.570795 6.28318 3.14159" xyz="0.005 -0.13 0.35"/>
     <parent link="base_link"/>
     <child link="link_1"/>
     <axis xyz="0 1 0"/>
@@ -255,17 +255,18 @@
     <limit effort="0" lower="-2.617" upper="2.617" velocity="1.571"/>
   </joint>
   <joint name="joint_4" type="revolute">
-    <origin rpy="3.14159 0.0 0.0" xyz="0.0 0.4268 0.0"/>
+    <origin rpy="6.28318 6.28318 0" xyz="0.0 0.4268 0.0"/>
     <parent link="link_3"/>
     <child link="link_4"/>
     <axis xyz="0 0 1"/>
     <limit effort="0" lower="-1.745" upper="1.745" velocity="1.571"/>
   </joint>
   <joint name="joint_5" type="fixed">
-    <origin rpy="1.570795 -1.570795 0.0" xyz="0.0 -0.28 0.0"/>
+    <origin rpy="-1.570795 -1.570795 0.0" xyz="0.0 0.28 0.0"/>
     <parent link="link_4"/>
     <child link="link_5"/>
     <axis xyz="0 1 0"/>
+    <limit effort="0" lower="-0.31" upper="0.1" velocity="0.5"/>
   </joint>
   <joint name="joint_6" type="prismatic">
     <origin rpy="-4.712385 6.28318 1.570795" xyz="0.14 0.0 0.0"/>

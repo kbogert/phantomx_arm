@@ -3,23 +3,24 @@
    <property name="M_PI" value="3.14159"/>
    <property name="M_SCALE" value="0.04"/>
    <xacro:include filename="$(find phantomx_arm_description)/urdf/common_materials.xacro" />
-   <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+
    <link name="world" />
    <joint name="fixed" type="fixed">
       <parent link="world" />
       <child link="base_link" />
    </joint>
+
    <xacro:macro name="phantomx_arm" params="prefix">
       <!-- links -->
       <link name="${prefix}base_link">
          <visual>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="${M_SCALE*10} ${M_SCALE*10} ${M_SCALE*0}" rpy="${M_PI*0} ${M_PI*0} ${M_PI}" />
             <geometry>
                <mesh filename="package://phantomx_arm_description/meshes/visual/base_link.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
             </geometry>
 	    <xacro:material_black />
          </visual>
-         <collision> Setup Assistant will work for a few second before presenting you the results of its computation in the main table. 
+         <collision> 
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                <mesh filename="package://phantomx_arm_description/meshes/collision/base_link.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
@@ -52,7 +53,7 @@
          </inertial>
       </link>
       <link name="${prefix}link_2">
-         <visual>
+         <visual>with
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                <mesh filename="package://phantomx_arm_description/meshes/visual/bicep_link.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
@@ -93,7 +94,7 @@
       </link>
       <link name="${prefix}link_4">
          <visual>
-            <origin xyz="${M_SCALE*-1.18} ${M_SCALE*-3.3} ${M_SCALE*0}" rpy="0 0 0" />
+            <origin xyz="${M_SCALE*-1.18} ${M_SCALE*3.3} ${M_SCALE*0}" rpy="${M_PI*0} ${M_PI} ${-M_PI}" />
             <geometry>
                <mesh filename="package://phantomx_arm_description/meshes/visual/wrist_link.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
             </geometry>
@@ -173,7 +174,7 @@
       </link>
       <!-- joints -->
       <joint name="${prefix}joint_1" type="revolute">
-         <origin xyz="${M_SCALE*9.9} ${M_SCALE*13.15} ${M_SCALE*8.75}" rpy="${M_PI/2} ${M_PI*2} ${M_PI/2}" />
+         <origin xyz="${M_SCALE*0.125} ${M_SCALE*-3.25} ${M_SCALE*8.75}" rpy="${M_PI/2} ${M_PI*2} ${M_PI}" />
          <parent link="${prefix}base_link" />
          <child link="${prefix}link_1" />
          <axis xyz="0 1 0" />
@@ -194,17 +195,18 @@
          <limit lower="-2.617" upper="2.617" effort="0" velocity="1.571" />
       </joint>
       <joint name="${prefix}joint_4" type="revolute">
-         <origin xyz="${M_SCALE*0} ${M_SCALE*10.67} ${M_SCALE*0}" rpy="${M_PI} ${M_PI*0} ${M_PI*0}" />
+         <origin xyz="${M_SCALE*0} ${M_SCALE*10.67} ${M_SCALE*0}" rpy="${M_PI*2} ${M_PI*2} 0" />
          <parent link="${prefix}link_3" />
          <child link="${prefix}link_4" />
          <axis xyz="0 0 1" />
          <limit lower="-1.745" upper="1.745" effort="0" velocity="1.571" />
       </joint>
       <joint name="${prefix}joint_5" type="fixed">
-         <origin xyz="${M_SCALE*0} ${M_SCALE*-7} ${M_SCALE*0}" rpy="${M_PI/2} ${-M_PI/2} ${M_PI*0}" />
+         <origin xyz="${M_SCALE*0} ${M_SCALE*7} ${M_SCALE*0}" rpy="${-M_PI/2} ${-M_PI/2} ${M_PI*0}" />
          <parent link="${prefix}link_4" />
          <child link="${prefix}link_5" />
          <axis xyz="0 1 0" />
+         <limit lower="-0.31" upper="0.1" effort="0" velocity="0.5" />
       </joint>
       <joint name="${prefix}joint_6" type="prismatic">
          <origin xyz="${M_SCALE*3.5} ${M_SCALE*0} ${M_SCALE*0}" rpy="${-M_PI*1.5} ${M_PI*2} ${M_PI/2}" />
