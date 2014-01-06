@@ -1,0 +1,11 @@
+<launch>
+
+  <node name="arbotix" pkg="arbotix_python" type="arbotix_driver" output="screen">
+      <rosparam file="$(find phantomx_arm_controller)/config/joints.yaml" command="load" />
+  </node>
+
+  <node name="gripper_controller" pkg="arbotix_controllers" type="gripper_controller.py">
+      <param name="model" value="parallel"/>
+  </node>
+
+</launch>

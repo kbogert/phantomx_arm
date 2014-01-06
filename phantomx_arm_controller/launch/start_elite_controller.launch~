@@ -1,0 +1,13 @@
+<launch>
+    <!-- Start elite joint controller -->
+    <rosparam file="$(find elite_controller)/config/joints.yaml" command="load"/>
+    <node name="base_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
+          args="--manager=dxl_manager
+                --port dynamixel_port
+                joint1_controller
+		joint2_controller
+		joint3_controller
+		joint4_controller
+		joint5_controller"
+          output="screen"/>
+</launch>
