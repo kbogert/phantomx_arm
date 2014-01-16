@@ -1,0 +1,10 @@
+<!--
+  The mobile platform base.
+  
+  Selector for the base.
+ -->
+<launch>
+  <arg name="base"/>
+  <include file="$(find phantomx_arm_turtlebot_description)/launch/includes/$(arg base)/mobile_base.launch.xml"/>
+</launch>
+

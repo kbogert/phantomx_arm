@@ -1,0 +1,8 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: phantomx_arm_turtlebot_description
+    relative_path: robots/kobuki_hexagons_kinect.urdf.xacro
+  SRDF:
+    relative_path: config/turtlebot.srdf
+  CONFIG:
+    generated_timestamp: 1389820155
