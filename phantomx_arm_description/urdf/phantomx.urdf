@@ -4,11 +4,6 @@
 <!-- |    EDITING THIS FILE BY HAND IS NOT RECOMMENDED                                 | -->
 <!-- =================================================================================== -->
 <robot name="phantomx_arm" xmlns:xacro="http://ros.org/wiki/xacro">
-  <link name="world"/>
-  <joint name="fixed" type="fixed">
-    <parent link="world"/>
-    <child link="base_link"/>
-  </joint>
   <transmission name="tran1">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="joint_1"/>
@@ -57,11 +52,11 @@
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
-  <link name="base_link">
+  <link name="arm_base_link">
     <visual>
-      <origin rpy="0.0 0.0 3.14159" xyz="0.4 0.4 0.0"/>
+      <origin rpy="0.0 0.0 3.14159" xyz="0.1 0.1 0.0"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/visual/base_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/visual/base_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
       <material name="">
         <color rgba="0.15 0.15 0.15 1.0"/>
@@ -70,7 +65,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/collision/base_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/collision/base_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
     <inertial>
@@ -83,7 +78,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/visual/shoulder_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/visual/shoulder_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
       <material name="">
         <color rgba="0.15 0.15 0.15 1.0"/>
@@ -92,7 +87,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/collision/shoulder_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/collision/shoulder_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
     <inertial>
@@ -105,7 +100,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/visual/bicep_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/visual/bicep_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
       <material name="">
         <color rgba="0.15 0.15 0.15 1.0"/>
@@ -114,7 +109,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/collision/bicep_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/collision/bicep_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
     <inertial>
@@ -127,7 +122,7 @@
     <visual>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/visual/bicep_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/visual/bicep_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
       <material name="">
         <color rgba="0.15 0.15 0.15 1.0"/>
@@ -136,7 +131,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/collision/bicep_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/collision/bicep_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
     <inertial>
@@ -147,9 +142,9 @@
   </link>
   <link name="link_4">
     <visual>
-      <origin rpy="0.0 3.14159 -3.14159" xyz="-0.0472 0.132 0.0"/>
+      <origin rpy="0.0 3.14159 -3.14159" xyz="-0.0118 0.033 0.0"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/visual/wrist_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/visual/wrist_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
       <material name="">
         <color rgba="0.15 0.15 0.15 1.0"/>
@@ -158,7 +153,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/collision/wrist_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/collision/wrist_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
     <inertial>
@@ -169,9 +164,9 @@
   </link>
   <link name="link_5">
     <visual>
-      <origin rpy="0 0 0" xyz="-0.046 0.052 -0.02"/>
+      <origin rpy="0 0 0" xyz="-0.0115 0.013 -0.005"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/visual/guide_rail_fixed_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/visual/guide_rail_fixed_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
       <material name="">
         <color rgba="0.15 0.15 0.15 1.0"/>
@@ -180,7 +175,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/collision/guide_rail_fixed_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/collision/guide_rail_fixed_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
     <inertial>
@@ -191,9 +186,9 @@
   </link>
   <link name="link_6">
     <visual>
-      <origin rpy="0 0 0" xyz="-0.06 -0.02 0.02"/>
+      <origin rpy="0 0 0" xyz="-0.015 -0.005 0.005"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/visual/gripper_hand_fixed_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/visual/gripper_hand_fixed_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
       <material name="">
         <color rgba="0.15 0.15 0.15 1.0"/>
@@ -202,7 +197,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/collision/gripper_hand_fixed_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/collision/gripper_hand_fixed_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
     <inertial>
@@ -213,9 +208,9 @@
   </link>
   <link name="link_7">
     <visual>
-      <origin rpy="0 0 0" xyz="-0.06 -0.02 0.02"/>
+      <origin rpy="0 0 0" xyz="-0.015 -0.005 0.005"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/visual/gripper_hand_fixed_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/visual/gripper_hand_fixed_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
       <material name="">
         <color rgba="0.15 0.15 0.15 1.0"/>
@@ -224,7 +219,7 @@
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://phantomx_arm_description/meshes/collision/gripper_hand_fixed_link.stl" scale="0.04 0.04 0.04"/>
+        <mesh filename="package://phantomx_arm_description/meshes/collision/gripper_hand_fixed_link.stl" scale="0.01 0.01 0.01"/>
       </geometry>
     </collision>
     <inertial>
@@ -233,50 +228,56 @@
       <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
     </inertial>
   </link>
+  <joint name="arm_base_joint" type="fixed">
+    <origin rpy="0.0 0.0 -1.570795" xyz="0.145 0.002 0.002"/>
+    <parent link="plate_top_link"/>
+    <child link="arm_base_link"/>
+    <axis xyz="0 1 0"/>
+  </joint>
   <joint name="joint_1" type="revolute">
-    <origin rpy="1.570795 6.28318 3.14159" xyz="0.005 -0.13 0.35"/>
-    <parent link="base_link"/>
+    <origin rpy="1.570795 6.28318 3.14159" xyz="0.00125 -0.0325 0.0875"/>
+    <parent link="arm_base_link"/>
     <child link="link_1"/>
     <axis xyz="0 1 0"/>
     <limit effort="0" lower="-2.617" upper="2.617" velocity="0.785"/>
   </joint>
   <joint name="joint_2" type="revolute">
-    <origin rpy="0 0 0" xyz="0.0 0.166 0.0"/>
+    <origin rpy="0 0.0 0" xyz="0.0 0.0415 0.0"/>
     <parent link="link_1"/>
     <child link="link_2"/>
     <axis xyz="0 0 1"/>
     <limit effort="0" lower="-2.617" upper="2.617" velocity="1.571"/>
   </joint>
   <joint name="joint_3" type="revolute">
-    <origin rpy="0 0 0" xyz="0.0 0.4268 0.0"/>
+    <origin rpy="0 0 0" xyz="0.0 0.1067 0.0"/>
     <parent link="link_2"/>
     <child link="link_3"/>
     <axis xyz="0 0 1"/>
     <limit effort="0" lower="-2.617" upper="2.617" velocity="1.571"/>
   </joint>
   <joint name="joint_4" type="revolute">
-    <origin rpy="6.28318 6.28318 0" xyz="0.0 0.4268 0.0"/>
+    <origin rpy="6.28318 6.28318 0" xyz="0.0 0.1067 0.0"/>
     <parent link="link_3"/>
     <child link="link_4"/>
     <axis xyz="0 0 1"/>
     <limit effort="0" lower="-1.745" upper="1.745" velocity="1.571"/>
   </joint>
   <joint name="joint_5" type="fixed">
-    <origin rpy="-1.570795 -1.570795 0.0" xyz="0.0 0.28 0.0"/>
+    <origin rpy="-1.570795 -1.570795 0.0" xyz="0.0 0.07 0.0"/>
     <parent link="link_4"/>
     <child link="link_5"/>
     <axis xyz="0 1 0"/>
     <limit effort="0" lower="-0.31" upper="0.1" velocity="0.5"/>
   </joint>
   <joint name="joint_6" type="prismatic">
-    <origin rpy="-4.712385 6.28318 1.570795" xyz="0.14 0.0 0.0"/>
+    <origin rpy="-4.712385 6.28318 1.570795" xyz="0.035 0.0 0.0"/>
     <parent link="link_5"/>
     <child link="link_6"/>
     <axis xyz="0 0 1"/>
     <limit effort="0" lower="-0.31" upper="0.1" velocity="0.5"/>
   </joint>
   <joint name="joint_7" type="prismatic">
-    <origin rpy="-4.712385 6.28318 -1.570795" xyz="-0.14 0.0 0.0"/>
+    <origin rpy="-4.712385 6.28318 -1.570795" xyz="-0.035 0.0 0.0"/>
     <parent link="link_5"/>
     <child link="link_7"/>
     <axis xyz="0 0 1"/>

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
    <property name="M_PI" value="3.14159"/>
-   <property name="M_SCALE" value="0.04"/>
+   <property name="M_SCALE" value="0.01"/>
    <xacro:include filename="$(find phantomx_arm_description)/urdf/common_materials.xacro" />
 
-   <link name="world" />
-   <joint name="fixed" type="fixed">
-      <parent link="world" />
-      <child link="base_link" />
-   </joint>
+   <!--link name="plate_top_link"/-->
+   <!--joint name="fixed" type="fixed">
+      <parent link="plate_top_link" />
+      <child link="ph_base_link" />
+   </joint-->
 
    <xacro:macro name="phantomx_arm" params="prefix">
       <!-- links -->
-      <link name="${prefix}base_link">
+      <link name="${prefix}arm_base_link">
          <visual>
             <origin xyz="${M_SCALE*10} ${M_SCALE*10} ${M_SCALE*0}" rpy="${M_PI*0} ${M_PI*0} ${M_PI}" />
             <geometry>
@@ -173,15 +173,21 @@
          </inertial>
       </link>
       <!-- joints -->
+      <joint name="${prefix}arm_base_joint" type="fixed">
+         <origin xyz="${M_SCALE*14.5} ${M_SCALE*0.2} ${M_SCALE*0.2}" rpy="${M_PI*0} ${M_PI*0} ${-M_PI/2}" />
+         <parent link="plate_top_link" />
+         <child link="${prefix}arm_base_link"/>
+         <axis xyz="0 1 0" />
+      </joint>
       <joint name="${prefix}joint_1" type="revolute">
          <origin xyz="${M_SCALE*0.125} ${M_SCALE*-3.25} ${M_SCALE*8.75}" rpy="${M_PI/2} ${M_PI*2} ${M_PI}" />
-         <parent link="${prefix}base_link" />
+         <parent link="${prefix}arm_base_link" />
          <child link="${prefix}link_1" />
          <axis xyz="0 1 0" />
          <limit lower="-2.617" upper="2.617" effort="0" velocity="0.785" />
       </joint>
       <joint name="${prefix}joint_2" type="revolute">
-         <origin xyz="${M_SCALE*0} ${M_SCALE*4.15} ${M_SCALE*0}" rpy="0 0 0" />
+         <origin xyz="${M_SCALE*0} ${M_SCALE*4.15} ${M_SCALE*0}" rpy="0 ${M_PI*0} 0" />
          <parent link="${prefix}link_1" />
          <child link="${prefix}link_2" />
          <axis xyz="0 0 1" />
