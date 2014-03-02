@@ -1,0 +1,8 @@
+<launch>
+  <!-- Begin gmapping -->
+  <include file="$(find turtlebot_navigation)/launch/includes/gmapping.launch.xml"/>
+  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+  <!-- Launch rviz viewer -->
+  <include file="$(find turtlebot_rviz_launchers)/launch/view_navigation.launch"/
+
+</launch>

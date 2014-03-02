@@ -17,7 +17,7 @@
   </include>
   <include file="$(find phantomx_arm_turtlebot_description)/launch/includes/netbook.launch.xml">
     <arg name="battery" value="$(arg battery)" />
-  </include><nod
+  </include>
   <!-- Load joint state publisher -->
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node>
 
