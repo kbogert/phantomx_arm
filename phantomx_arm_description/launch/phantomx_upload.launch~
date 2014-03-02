@@ -1,7 +1,0 @@
-<launch>
-  <!-- Load the URDF into the ROS Parameter Server -->
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find fanuc_description)/urdf/m10ia.xacro'"/>
-  <param name="use_gui" value="true"/>
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node>
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
-</launch>
