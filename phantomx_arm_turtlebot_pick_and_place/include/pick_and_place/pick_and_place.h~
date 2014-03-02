@@ -1,0 +1,25 @@
+/*
+ * pick_and_place_headers.h
+ *
+ *  Created on: Jun 3, 2013
+ *      Author: ros-industrial
+ */
+
+#ifndef PICK_AND_PLACE_H_
+#define PICK_AND_PLACE_H_
+
+#include <ros/ros.h>
+#include <actionlib/client/simple_action_client.h>
+#include <moveit/move_group_interface/move_group.h>
+#include <pick_and_place_exercise/pick_and_place_utilities.h>
+
+
+
+// =============================== global variables =====================================
+extern pick_and_place_config cfg;
+
+// =============================== Task Functions ===============================
+void move_to_wait_position(move_group_interface::MoveGroup& move_group);
+
+
+#endif /* PICK_AND_PLACE_H_ */
