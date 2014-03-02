@@ -53,7 +53,7 @@
          </inertial>
       </link>
       <link name="${prefix}link_2">
-         <visual>with
+         <visual>
             <origin xyz="0 0 0" rpy="0 0 0" />
             <geometry>
                <mesh filename="package://phantomx_arm_description/meshes/visual/bicep_link.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
@@ -180,14 +180,14 @@
          <axis xyz="0 1 0" />
       </joint>
       <joint name="${prefix}joint_1" type="revolute">
-         <origin xyz="${M_SCALE*0.125} ${M_SCALE*-3.25} ${M_SCALE*8.75}" rpy="${M_PI/2} ${M_PI*2} ${M_PI*0}" />
+         <origin xyz="${M_SCALE*0.125} ${M_SCALE*-3.25} ${M_SCALE*8.75}" rpy="${M_PI/2} ${M_PI*2} ${M_PI}" />
          <parent link="${prefix}arm_base_link" />
          <child link="${prefix}link_1" />
          <axis xyz="0 1 0" />
          <limit lower="-2.617" upper="2.617" effort="0" velocity="0.785" />
       </joint>
       <joint name="${prefix}joint_2" type="revolute">
-         <origin xyz="${M_SCALE*0} ${M_SCALE*4.15} ${M_SCALE*0}" rpy="0 ${M_PI/2} 0" />
+         <origin xyz="${M_SCALE*0} ${M_SCALE*4.15} ${M_SCALE*0}" rpy="0 ${M_PI*0} 0" />
          <parent link="${prefix}link_1" />
          <child link="${prefix}link_2" />
          <axis xyz="0 0 1" />
@@ -207,7 +207,7 @@
          <axis xyz="0 0 1" />
          <limit lower="-1.745" upper="1.745" effort="0" velocity="1.571" />
       </joint>
-      <joint name="${prefix}joint_5" type="fixed">
+      <joint name="${prefix}joint_5" type="revolute">
          <origin xyz="${M_SCALE*0} ${M_SCALE*7} ${M_SCALE*0}" rpy="${-M_PI/2} ${-M_PI/2} ${M_PI*0}" />
          <parent link="${prefix}link_4" />
          <child link="${prefix}link_5" />
