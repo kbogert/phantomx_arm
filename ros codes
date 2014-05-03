@@ -1,0 +1,12 @@
+roslaunch phantomx_arm_turtlebot_description auto_navigation.launch map_file:=/home/michael/catkin_ws/src/phantomx_arm/my_map.yaml
+
+rosrun phantomx_arm_turtlebot_description scripts/action_test.py
+
+
+rosrun phantomx_arm_turtlebot_description scripts/maintenance_planner.py
+
+
+
+
+
+

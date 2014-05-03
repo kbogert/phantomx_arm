@@ -1,0 +1,13 @@
+in order to get multiple turtlebots you require to place each one in a specific namespace. You can do this by adding <group ns="robot_name"> to the launch file
+
+You also require editing the kobuki node base param file in opt/ros,.... here change odom and base_footprint to remap to robot_name/odom, robot_name.base_footprint instead.
+
+Also look into changing map server load up by adding <param name="frame_id" value="turtlebot_1/odom" />
+
+move_base and gmapping.launch have also been edited to include turtlebot_1/
+
+regarding error with no transform from base_footprint to map, this may be related to move_base values for base and global frame
+rosparam get turtlebot_1/move_base/global_costmap/robot_base_frame, which are not getting set to turtlebot/base_footprint, in this case leave as /map
+
+
+

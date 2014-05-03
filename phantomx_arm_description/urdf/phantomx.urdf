@@ -269,14 +269,14 @@
     <axis xyz="0 1 0"/>
     <limit effort="0" lower="-0.31" upper="0.1" velocity="0.5"/>
   </joint>
-  <joint name="joint_6" type="prismatic">
+  <joint name="joint_6" type="fixed">
     <origin rpy="-4.712385 6.28318 1.570795" xyz="0.035 0.0 0.0"/>
     <parent link="link_5"/>
     <child link="link_6"/>
     <axis xyz="0 0 1"/>
     <limit effort="0" lower="-0.31" upper="0.1" velocity="0.5"/>
   </joint>
-  <joint name="joint_7" type="prismatic">
+  <joint name="joint_7" type="fixed">
     <origin rpy="-4.712385 6.28318 -1.570795" xyz="-0.035 0.0 0.0"/>
     <parent link="link_5"/>
     <child link="link_7"/>

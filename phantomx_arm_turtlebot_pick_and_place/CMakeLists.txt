@@ -96,17 +96,17 @@ include_directories(include)
 # )
 
 ## Declare a cpp executable
-add_executable(phantomx_arm_turtlebot_pick_and_place_node src/nodes/pick_and_place_node.cpp
-	src/tasks/move_to_wait_position.cpp)
+##add_executable(phantomx_arm_turtlebot_pick_and_place_node src/nodes/pick_and_place_node.cpp
+##	src/tasks/move_to_wait_position.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(phantomx_arm_turtlebot_pick_and_place_node phantomx_arm_turtlebot_pick_and_place_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
- target_link_libraries(phantomx_arm_turtlebot_pick_and_place_node
-   ${catkin_LIBRARIES}
- )
+## target_link_libraries(phantomx_arm_turtlebot_pick_and_place_node
+##   ${catkin_LIBRARIES}
+## )
 
 #############
 ## Install ##undefined reference to `ros::init(int&, char**, std::string const&, unsigned int)'

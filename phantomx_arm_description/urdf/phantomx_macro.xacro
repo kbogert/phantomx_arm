@@ -214,14 +214,14 @@
          <axis xyz="0 1 0" />
          <limit lower="-0.31" upper="0.1" effort="0" velocity="0.5" />
       </joint>
-      <joint name="${prefix}joint_6" type="prismatic">
+      <joint name="${prefix}joint_6" type="fixed">
          <origin xyz="${M_SCALE*3.5} ${M_SCALE*0} ${M_SCALE*0}" rpy="${-M_PI*1.5} ${M_PI*2} ${M_PI/2}" />
          <parent link="${prefix}link_5" />
          <child link="${prefix}link_6" />
          <axis xyz="0 0 1" />
          <limit lower="-0.31" upper="0.1" effort="0" velocity="0.5" />
       </joint>
-      <joint name="${prefix}joint_7" type="prismatic">
+      <joint name="${prefix}joint_7" type="fixed">
          <origin xyz="${M_SCALE*-3.5} ${M_SCALE*0} ${M_SCALE*0}" rpy="${-M_PI*1.5} ${M_PI*2} ${-M_PI/2}" />
          <parent link="${prefix}link_5" />
          <child link="${prefix}link_7" />

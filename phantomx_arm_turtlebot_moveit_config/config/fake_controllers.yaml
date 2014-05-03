@@ -7,5 +7,4 @@ controller_list:
       - joint_4
   - name: fake_gripper_controller
     joints:
-      - joint_6
-      - joint_7
+      []

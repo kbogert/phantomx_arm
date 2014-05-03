@@ -47,5 +47,3 @@ gripper:
     - TRRTkConfigDefault
     - PRMkConfigDefault
     - PRMstarkConfigDefault
-  projection_evaluator: joints(joint_6,joint_7)
-  longest_valid_segment_fraction: 0.05
