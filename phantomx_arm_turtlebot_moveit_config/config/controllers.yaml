@@ -13,5 +13,4 @@ controller_list:
     action_ns: gripper_action
     default: true
     joints:
-      - joint_6
-      - joint_7
+      - joint_5

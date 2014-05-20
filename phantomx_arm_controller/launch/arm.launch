@@ -4,8 +4,9 @@
       <rosparam file="$(find phantomx_arm_controller)/config/joints.yaml" command="load" />
   </node>
 
-  <node name="gripper_controller" pkg="arbotix_controllers" type="gripper_controller.py">
+  <node name="gripper_controller" pkg="arbotix_controllers" type="gripper_controller">
       <param name="model" value="parallel"/>
+      <param name="joint" value="/joint_5"/>
   </node>
 
 </launch>

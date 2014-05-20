@@ -174,13 +174,13 @@
       </link>
       <!-- joints -->
       <joint name="${prefix}arm_base_joint" type="fixed">
-         <origin xyz="${M_SCALE*14.5} ${M_SCALE*0.2} ${M_SCALE*0.2}" rpy="${M_PI*0} ${M_PI*0} ${-M_PI/2}" />
+         <origin xyz="${M_SCALE*12.25} ${M_SCALE*0.2} ${M_SCALE*0.2}" rpy="${M_PI*0} ${M_PI*0} ${-M_PI/2}" />
          <parent link="plate_top_link" />
          <child link="${prefix}arm_base_link"/>
          <axis xyz="0 1 0" />
       </joint>
       <joint name="${prefix}joint_1" type="revolute">
-         <origin xyz="${M_SCALE*0.125} ${M_SCALE*-3.25} ${M_SCALE*8.75}" rpy="${M_PI/2} ${M_PI*2} ${M_PI}" />
+         <origin xyz="${M_SCALE*0.125} ${M_SCALE*-3.25} ${M_SCALE*8.75}" rpy="${M_PI/2} ${M_PI*2} ${-M_PI/2}" />
          <parent link="${prefix}arm_base_link" />
          <child link="${prefix}link_1" />
          <axis xyz="0 1 0" />

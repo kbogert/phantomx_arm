@@ -9,5 +9,5 @@ joints: {
     joint_5: {id: 5, max_angle: 0.1, min_angle: -2.7, max_speed: 90},
 }
 controllers: {
-    arm_controller: {type: follow_controller, joints: [joint_1, joint_2, joint_3, joint_4, joint_5], action_name: arm_controller/follow_joint_trajectory, onboard: False }
+    arm_controller: {type: follow_controller, joints: [joint_1, joint_2, joint_3, joint_4], action_name: arm_controller/follow_joint_trajectory, onboard: False },
 }
