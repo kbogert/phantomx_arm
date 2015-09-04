@@ -22,5 +22,4 @@
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 	args="-urdf -model phantomx -param robot_description"/>
 
-
 </launch>

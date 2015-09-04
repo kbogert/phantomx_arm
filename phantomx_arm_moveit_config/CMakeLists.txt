@@ -3,6 +3,8 @@ project(phantomx_arm_moveit_config)
 
 find_package(catkin REQUIRED)
 
+find_package(Boost REQUIRED COMPONENTS system)
+
 catkin_package()
 
 install(DIRECTORY launch DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})

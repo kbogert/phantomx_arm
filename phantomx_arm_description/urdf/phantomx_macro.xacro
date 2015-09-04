@@ -11,6 +11,19 @@
    </joint-->
 
    <xacro:macro name="phantomx_arm" params="prefix">
+
+      <!-- 
+	A Gazebo plugin needs to be added to your URDF that actually parses the transmission tags and loads the appropriate hardware interfaces and controller manager.
+        These plugins must inherit gazebo_ros_control::RobotHWSim which implements a simulated ros_control hardware_interface::RobotHW. 
+	RobotHWSim provides API-level access to read and command joint properties in the Gazebo simulator. 
+      -->
+      <gazebo>
+     	 <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+           <robotNamespace>/phantomx_arm</robotNamespace>
+     	   <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+     	 </plugin>
+      </gazebo>
+   
       <!-- links -->
       <link name="${prefix}arm_base_link">
          <visual>
@@ -156,14 +169,16 @@
          <visual>
             <origin xyz="${M_SCALE*-1.5} ${M_SCALE*-0.5} ${M_SCALE*0.5}" rpy="0 0 0" />
             <geometry>
-               <mesh filename="package://phantomx_arm_description/meshes/visual/gripper_hand_fixed_link.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+            	<mesh filename="package://phantomx_arm_description/meshes/visual/gripper_hand_fixed_link.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/> 
+<!-- box size="0.1 0.1 0.1"/ -->
             </geometry>
             <xacro:material_black />
          </visual>
          <collision>
             <origin xyz="${M_SCALE*-1.5} ${M_SCALE*-0.5} ${M_SCALE*0.5}" rpy="0 0 0" />
             <geometry>
-               <mesh filename="package://phantomx_arm_description/meshes/collision/gripper_hand_fixed_link.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
+<!-- box size="0.1 0.1 0.1"/ -->               
+		<mesh filename="package://phantomx_arm_description/meshes/collision/gripper_hand_fixed_link.stl" scale="${M_SCALE} ${M_SCALE} ${M_SCALE}"/>
             </geometry>
          </collision>
          <inertial>
@@ -184,92 +199,105 @@
          <parent link="${prefix}arm_base_link" />
          <child link="${prefix}link_1" />
          <axis xyz="0 1 0" />
-         <limit lower="-2.617" upper="2.617" effort="0" velocity="0.785" />
+         <limit lower="-2.617" upper="2.617" effort="17" velocity="0.785" />
       </joint>
       <joint name="${prefix}joint_2" type="revolute">
          <origin xyz="${M_SCALE*0} ${M_SCALE*4.15} ${M_SCALE*0}" rpy="0 ${M_PI*0} 0" />
          <parent link="${prefix}link_1" />
          <child link="${prefix}link_2" />
          <axis xyz="0 0 1" />
-         <limit lower="-2.617" upper="2.617" effort="0" velocity="1.571" />
+         <limit lower="-2.617" upper="2.617" effort="17" velocity="1.571" />
       </joint>
       <joint name="${prefix}joint_3" type="revolute">
          <origin xyz="${M_SCALE*0} ${M_SCALE*10.67} ${M_SCALE*0}" rpy="0 0 0" />
          <parent link="${prefix}link_2" />
          <child link="${prefix}link_3" />
          <axis xyz="0 0 1" />
-         <limit lower="-2.617" upper="2.617" effort="0" velocity="1.571" />
+         <limit lower="-2.617" upper="2.617" effort="17" velocity="1.571" />
       </joint>
       <joint name="${prefix}joint_4" type="revolute">
          <origin xyz="${M_SCALE*0} ${M_SCALE*10.67} ${M_SCALE*0}" rpy="${M_PI*2} ${M_PI*2} 0" />
          <parent link="${prefix}link_3" />
          <child link="${prefix}link_4" />
          <axis xyz="0 0 1" />
-         <limit lower="-1.745" upper="1.745" effort="0" velocity="1.571" />
+         <limit lower="-1.745" upper="1.745" effort="17" velocity="1.571" />
       </joint>
       <joint name="${prefix}joint_5" type="fixed">
          <origin xyz="${M_SCALE*0} ${M_SCALE*7} ${M_SCALE*0}" rpy="${-M_PI/2} ${-M_PI/2} ${M_PI*0}" />
          <parent link="${prefix}link_4" />
          <child link="${prefix}link_5" />
          <axis xyz="0 1 0" />
-         <limit lower="-0.31" upper="0.1" effort="0" velocity="0.5" />
+         <limit lower="-0.31" upper="0.1" effort="17" velocity="0.5" />
       </joint>
       <joint name="${prefix}joint_6" type="fixed">
          <origin xyz="${M_SCALE*3.5} ${M_SCALE*0} ${M_SCALE*0}" rpy="${-M_PI*1.5} ${M_PI*2} ${M_PI/2}" />
          <parent link="${prefix}link_5" />
          <child link="${prefix}link_6" />
          <axis xyz="0 0 1" />
-         <limit lower="-0.31" upper="0.1" effort="0" velocity="0.5" />
+         <limit lower="-0.31" upper="0.1" effort="17" velocity="0.5" />
       </joint>
       <joint name="${prefix}joint_7" type="fixed">
          <origin xyz="${M_SCALE*-3.5} ${M_SCALE*0} ${M_SCALE*0}" rpy="${-M_PI*1.5} ${M_PI*2} ${-M_PI/2}" />
          <parent link="${prefix}link_5" />
          <child link="${prefix}link_7" />
          <axis xyz="0 0 1" />
-         <limit lower="-0.31" upper="0.1" effort="0" velocity="0.5" />
+         <limit lower="-0.31" upper="0.1" effort="17" velocity="0.5" />
       </joint>
    </xacro:macro>
 
-
+  <!-- hardware_interface::EffortJointInterface provides an appropriate hardware interface for our PhantomX Arm-->
   <transmission name="tran1">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_1"/>
+    <joint name="joint_1">
+	<hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
     <actuator name="motor1">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
 
+ <!-- hardware_interface::EffortJointInterface provides an appropriate hardware interface for our PhantomX Arm-->
  <transmission name="tran2">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_2"/>
+    <joint name="joint_2">
+	<hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
     <actuator name="motor2">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
 
+ <!-- hardware_interface::EffortJointInterface provides an appropriate hardware interface for our PhantomX Arm-->
  <transmission name="tran3">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_3"/>
+    <joint name="joint_3">
+	<hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
     <actuator name="motor3">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
 
+ <!-- hardware_interface::EffortJointInterface provides an appropriate hardware interface for our PhantomX Arm-->
  <transmission name="tran4">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_4"/>
+    <joint name="joint_4">
+	<hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
     <actuator name="motor4">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
   </transmission>
 
- <transmission name="tran5">
+ <!-- transmission name="tran5">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_6"/>
+    <joint name="joint_6">
+	<hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
     <actuator name="motor5">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
@@ -278,12 +306,14 @@
 
  <transmission name="tran6">
     <type>transmission_interface/SimpleTransmission</type>
-    <joint name="joint_7"/>
+    <joint name="joint_7">
+	<hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
     <actuator name="motor6">
       <hardwareInterface>EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
-  </transmission>
+  </transmission -->
 
 </robot>
 
