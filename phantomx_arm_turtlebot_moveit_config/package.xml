@@ -58,5 +58,23 @@
   <build_depend>controller_manager</build_depend>
   <build_depend>message_generation</build_depend>
   <build_depend>ncurses++</build_depend>
+
+  <export>
+    <!-- gazebo_ros_paths_plugin automatically adds these to
+        GAZEBO_PLUGIN_PATH and GAZEBO_MODEL_PATH when you do this export inside
+        the package.xml file. You can than use URIs of type model://my_package/stuff. -->
+
+    <!-- The ${prefix}/.. means to add the parent of your package directory to the model path, 
+	 which should usually be the workspace itself. So then you can reference all packages from 
+         that workspace. If you need models from a different workspace, I think you have to declare 
+         the export in all needed workspaces somewhere. -->
+
+    <!-- CHECK if we need to export Gazebo paths in our .bashrc!! -->
+
+    <gazebo_ros                                                                 
+        gazebo_plugin_path="${prefix}/lib"
+        gazebo_resource_path="${prefix}/lib"
+ 	gazebo_model_path="${prefix}/.." /> 
+  </export>
   
 </package>

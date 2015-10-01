@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+   <property name="M_PI" value="3.14159"/>
+   <property name="M_SCALE" value="0.01"/>
+  
+   <xacro:macro name="worlds">
+
+      <!-- 
+	A Gazebo plugin needs to be added to your URDF that actually parses the transmission tags and loads the appropriate hardware interfaces and controller manager.
+        These plugins must inherit gazebo_ros_control::RobotHWSim which implements a simulated ros_control hardware_interface::RobotHW. 
+	RobotHWSim provides API-level access to read and command joint properties in the Gazebo simulator. 
+      -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/worlds</robotNamespace>
+      <robotParam>/worlds/world_description</robotParam>
+    </plugin>
+  </gazebo>
+   
+  <!-- links -->
+  <xacro:macro name="cylinder_inertia" params="m r h">
+  <inertial>
+    <mass value="${m}" />
+    <inertia ixx="${1.0/12.0 * m * (3 * r * r + h * h)}" ixy="0.0" ixz="0.0" iyy="${1.0/12.0 * m * (3 * r * r + h * h)}" iyz="0.0" izz="${1.0/2.0 * m * (r * r)}" />
+    </inertial>
+  </xacro:macro>
+  
+  <link name="world" />
+  <link name="link_walls" >
+    <visual>
+      <geometry>
+        <mesh filename="package://phantomx_arm_description/meshes/visual/Boyd_5th_floor_brown_doors_final.dae" scale="0.0254 0.0254 0.0254"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://phantomx_arm_description/meshes/collision/Boyd_5th_floor_brown_doors_finals.dae" scale="0.0254 0.0254 0.0254"/>
+      </geometry>
+    </collision>
+    <xacro:cylinder_inertia m="5000" r="15" h="15" />
+  </link>
+
+  <!-- joints -->
+  <joint name="joint_walls" type="fixed">
+    <parent link="world" />
+    <child link="link_walls" />
+    <origin xyz="0 0 0.1" rpy="0 0 0" />
+  </joint>      
+
+</xacro:macro>	
+</robot>

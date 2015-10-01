@@ -1,0 +1,26 @@
+<launch>
+
+  <!-- roslaunch arguments -->
+  <arg name="debug" default="false"/>
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="fake_execution" default="false" />
+  <arg name="allow_trajectory_execution" default="true" />
+  <arg name="robot_name"/>
+  <arg name="init_pose"/>
+  
+  <param name="robot_description"
+	 command="$(find xacro)/xacro.py '$(find phantomx_arm_turtlebot_description)/robots/kobuki_hexagons_kinect.urdf.xacro'"/>
+    
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="$(arg init_pose) -unpause -urdf -param robot_description -model $(arg robot_name)"/>
+	
+  <include file="$(find phantomx_arm_turtlebot_moveit_config)/launch/gazeboMultiArmController.launch">
+     <arg name="robot_name" value="$(arg robot_name)" />
+  </include>
+
+ </launch>
+

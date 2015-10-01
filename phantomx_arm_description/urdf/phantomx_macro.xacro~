@@ -10,16 +10,18 @@
       <child link="ph_base_link" />
    </joint-->
 
+   <!-- REFERENCE: http://answers.gazebosim.org/question/4372/the-inertia-matrix-explained/ -->
+
    <xacro:macro name="phantomx_arm" params="prefix">
 
       <!-- 
 	A Gazebo plugin needs to be added to your URDF that actually parses the transmission tags and loads the appropriate hardware interfaces and controller manager.
         These plugins must inherit gazebo_ros_control::RobotHWSim which implements a simulated ros_control hardware_interface::RobotHW. 
-	RobotHWSim provides API-level access to read and command joint properties in the Gazebo simulator 
+	RobotHWSim provides API-level access to read and command joint properties in the Gazebo simulator. 
       -->
       <gazebo>
      	 <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-           <robotNamespace>/phantomx_arm</robotNamespace>
+           <robotNamespace>/phantomx</robotNamespace>
      	   <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
      	 </plugin>
       </gazebo>
@@ -41,8 +43,8 @@
          </collision>
          <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="1" />
-            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <mass value="0.005" />
+            <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005" />
          </inertial>
       </link>
       <link name="${prefix}link_1">
@@ -61,8 +63,8 @@
          </collision>
          <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="1" />
-            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <mass value="0.005" />
+            <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005" />
          </inertial>
       </link>
       <link name="${prefix}link_2">
@@ -81,8 +83,8 @@
          </collision>
          <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="1" />
-            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <mass value="0.005" />
+            <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005" />
          </inertial>
       </link>
       <link name="${prefix}link_3">
@@ -101,8 +103,8 @@
          </collision>
          <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="1" />
-            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+            <mass value="0.005" />
+            <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005"/>
          </inertial>
       </link>
       <link name="${prefix}link_4">
@@ -121,8 +123,8 @@
          </collision>
          <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="1" />
-            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <mass value="0.005" />
+            <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005" />
          </inertial>
       </link>
       <link name="${prefix}link_5">
@@ -141,8 +143,8 @@
          </collision>
          <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="1" />
-            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <mass value="0.005" />
+            <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005" />
          </inertial>
       </link>
       <link name="${prefix}link_6">
@@ -161,8 +163,8 @@
          </collision>
          <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="1" />
-            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <mass value="0.005" />
+            <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005" />
          </inertial>
       </link>
        <link name="${prefix}link_7">
@@ -183,10 +185,11 @@
          </collision>
          <inertial>
             <origin xyz="0 0 0" rpy="0 0 0" />
-            <mass value="1" />
-            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+            <mass value="0.005" />
+            <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005" />
          </inertial>
       </link>
+
       <!-- joints -->
       <joint name="${prefix}arm_base_joint" type="fixed">
          <origin xyz="${M_SCALE*12.25} ${M_SCALE*0.2} ${M_SCALE*0.2}" rpy="${M_PI*0} ${M_PI*0} ${-M_PI/2}" />
@@ -199,49 +202,49 @@
          <parent link="${prefix}arm_base_link" />
          <child link="${prefix}link_1" />
          <axis xyz="0 1 0" />
-         <limit lower="-2.617" upper="2.617" effort="17" velocity="0.785" />
+         <limit lower="-2.617" upper="2.617" effort="3" velocity="0.785" />
       </joint>
       <joint name="${prefix}joint_2" type="revolute">
          <origin xyz="${M_SCALE*0} ${M_SCALE*4.15} ${M_SCALE*0}" rpy="0 ${M_PI*0} 0" />
          <parent link="${prefix}link_1" />
          <child link="${prefix}link_2" />
          <axis xyz="0 0 1" />
-         <limit lower="-2.617" upper="2.617" effort="17" velocity="1.571" />
+         <limit lower="-2.617" upper="2.617" effort="3" velocity="1.571" />
       </joint>
       <joint name="${prefix}joint_3" type="revolute">
          <origin xyz="${M_SCALE*0} ${M_SCALE*10.67} ${M_SCALE*0}" rpy="0 0 0" />
          <parent link="${prefix}link_2" />
          <child link="${prefix}link_3" />
          <axis xyz="0 0 1" />
-         <limit lower="-2.617" upper="2.617" effort="17" velocity="1.571" />
+         <limit lower="-2.617" upper="2.617" effort="3" velocity="1.571" />
       </joint>
       <joint name="${prefix}joint_4" type="revolute">
          <origin xyz="${M_SCALE*0} ${M_SCALE*10.67} ${M_SCALE*0}" rpy="${M_PI*2} ${M_PI*2} 0" />
          <parent link="${prefix}link_3" />
          <child link="${prefix}link_4" />
          <axis xyz="0 0 1" />
-         <limit lower="-1.745" upper="1.745" effort="17" velocity="1.571" />
+         <limit lower="-1.745" upper="1.745" effort="13" velocity="1.571" />
       </joint>
       <joint name="${prefix}joint_5" type="fixed">
          <origin xyz="${M_SCALE*0} ${M_SCALE*7} ${M_SCALE*0}" rpy="${-M_PI/2} ${-M_PI/2} ${M_PI*0}" />
          <parent link="${prefix}link_4" />
          <child link="${prefix}link_5" />
          <axis xyz="0 1 0" />
-         <limit lower="-0.31" upper="0.1" effort="17" velocity="0.5" />
+         <limit lower="-0.31" upper="0.1" effort="13" velocity="0.5" />
       </joint>
       <joint name="${prefix}joint_6" type="fixed">
          <origin xyz="${M_SCALE*3.5} ${M_SCALE*0} ${M_SCALE*0}" rpy="${-M_PI*1.5} ${M_PI*2} ${M_PI/2}" />
          <parent link="${prefix}link_5" />
          <child link="${prefix}link_6" />
          <axis xyz="0 0 1" />
-         <limit lower="-0.31" upper="0.1" effort="17" velocity="0.5" />
+         <limit lower="-0.31" upper="0.1" effort="13" velocity="0.5" />
       </joint>
       <joint name="${prefix}joint_7" type="fixed">
          <origin xyz="${M_SCALE*-3.5} ${M_SCALE*0} ${M_SCALE*0}" rpy="${-M_PI*1.5} ${M_PI*2} ${-M_PI/2}" />
          <parent link="${prefix}link_5" />
          <child link="${prefix}link_7" />
          <axis xyz="0 0 1" />
-         <limit lower="-0.31" upper="0.1" effort="17" velocity="0.5" />
+         <limit lower="-0.31" upper="0.1" effort="13" velocity="0.5" />
       </joint>
    </xacro:macro>
 

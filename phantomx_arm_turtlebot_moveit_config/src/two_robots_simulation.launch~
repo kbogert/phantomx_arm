@@ -1,0 +1,17 @@
+<launch>
+  
+  <!-- start world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find phantomx_arm_gazebo)/worlds/phantomx.world"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>    
+  </include>
+
+  <!-- include our robots -->
+  <include file="$(find experiment_launcher)/launch/multi_robot_launch/robots.launch">
+  
+  </include>
+</launch>
