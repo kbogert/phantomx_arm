@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+	<!-- Property defining the Robot_Name for the robot that can be potentially used between the Xacro Files (if needed) to refer 
+	     multiple namespaces in Gazebo. -->
+	<xacro:property name="robot_name" value="Maulesh" />
+	
+</robot>

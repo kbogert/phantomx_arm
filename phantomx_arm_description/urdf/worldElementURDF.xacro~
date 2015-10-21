@@ -1,6 +1,0 @@
-<?xml version="1.0" ?>
-
-<robot name="phantomx_arm" xmlns:xacro="http://ros.org/wiki/xacro">
-	<xacro:include filename="$(find phantomx_arm_description)/urdf/worldElementURDF_macro.xacro"/>
-	
-</robot>
