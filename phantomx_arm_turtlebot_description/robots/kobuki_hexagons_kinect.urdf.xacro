@@ -6,7 +6,15 @@
 -->    
 <robot name="turtlebot" xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:include filename="$(find phantomx_arm_turtlebot_description)/urdf/turtlebot_library.urdf.xacro" />
+  <!-- Turtlebot Kobuki Description Files -->
+  <xacro:include filename="$(find phantomx_arm_turtlebot_description)/urdf/turtlebot_library.urdf.xacro"/>
+
+  <!-- PhantomX Arm -->
+  <!-- For convenience and effective use of multiple namespaces, this call has been moved to kobuki_hexagons_kinect.urdf.xacro -->
+  <!-- The 'prefix' tag for the 'phantomx_arm' macro allows robot_ns reference to be sent to the urdf.xacro files directly from our launch files -->
+  <xacro:include filename="$(find phantomx_arm_description)/urdf/phantomx_macro.xacro"/>
+  <xacro:phantomx_arm prefix="$(arg prefix)"/>
+
   <kobuki/>
   <stack_hexagons parent="base_link"/>
   <sensor_kinect  parent="base_link"/>
