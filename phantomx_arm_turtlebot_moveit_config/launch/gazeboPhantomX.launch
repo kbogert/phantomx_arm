@@ -8,6 +8,8 @@
   <arg name="headless" default="false"/>
   <arg name="fake_execution" default="false" />
   <arg name="allow_trajectory_execution" default="true" />
+  <arg name="namespace" default="Maulesh" />
+
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find phantomx_arm_gazebo)/worlds/phantomx.world"/>
@@ -18,9 +20,10 @@
     <arg name="headless" value="$(arg headless)"/>    
   </include>
 
-   <!-- Load the URDF into the ROS Parameter Server -->
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <!-- The 'prefix' tag references the specific robot namespace within Gazebo -->
   <param name="robot_description"
-	 command="$(find xacro)/xacro.py '$(find phantomx_arm_turtlebot_description)/robots/kobuki_hexagons_kinect.urdf.xacro'"/>
+	 command="$(find xacro)/xacro.py '$(find phantomx_arm_turtlebot_description)/robots/kobuki_hexagons_kinect.urdf.xacro' prefix:=$(arg namespace)"/>
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
