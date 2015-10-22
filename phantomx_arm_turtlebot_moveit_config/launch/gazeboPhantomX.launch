@@ -10,7 +10,7 @@
   <arg name="allow_trajectory_execution" default="true" />
   <arg name="namespace" default="Maulesh" />
 
-
+  <!-- Launch our World -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find phantomx_arm_gazebo)/worlds/phantomx.world"/>
     <arg name="debug" value="$(arg debug)" />

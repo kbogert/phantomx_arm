@@ -1,0 +1,35 @@
+<launch>
+  <!-- No namespace here as we will share this description. 
+       Access with slash at the beginning -->
+  <arg name="base"/>
+  <arg name="stacks"/>
+  <arg name="3d_sensor"/>
+  <arg name="namespace" default="Maulesh" />
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <!-- This 'prefix' tag references a generic robot namespace within Gazebo -->
+  <param name="robot_description"
+	 command="$(find xacro)/xacro.py '$(find phantomx_arm_turtlebot_description)/robots/kobuki_hexagons_kinect.urdf.xacro' prefix:=$(arg namespace)"/>
+
+  <!-- Load joint controller configurations from the YAML config file to parameter server -->
+  <rosparam file="$(find phantomx_arm_turtlebot_moveit_config)/config/multi_arm_controller.yaml" command="load" />
+
+  <!-- BEGIN ROBOT 1 -->
+  <group ns="robot_1">
+    <param name="tf_prefix" value="robot1_tf" />
+    <include file="$(find phantomx_arm_turtlebot_moveit_config)/launch/twoRobotGazebo.launch" >
+      <arg name="init_pose" value="-x 4 -y 4 -z 0" />
+      <arg name="robot_name" value="Robot1" />
+    </include>
+  </group>
+ 
+  <!-- BEGIN ROBOT 2 -->
+  <group ns="robot_2">
+    <param name="tf_prefix" value="robot2_tf" />
+    <include file="$(find phantomx_arm_turtlebot_moveit_config)/launch/twoRobotGazebo.launch" >
+      <arg name="init_pose" value="-x 4 -y 3 -z 0" />
+      <arg name="robot_name" value="Robot2" />
+    </include>
+  </group>
+
+</launch>
