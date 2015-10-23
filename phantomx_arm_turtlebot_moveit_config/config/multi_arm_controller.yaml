@@ -22,6 +22,14 @@ Robot1/phantomx_arm:
     type: effort_controllers/JointPositionController
     joint: joint_4
     pid: {p: 0.50, i: 0.01, d: 0.25}
+  joint6_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: joint_6
+    pid: {p: 0.50, i: 0.01, d: 0.25}
+  joint7_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: joint_7
+    pid: {p: 0.50, i: 0.01, d: 0.25}
 
 # Namespace specific robot controller configuration ------------
 Robot2/phantomx_arm:
@@ -46,4 +54,12 @@ Robot2/phantomx_arm:
   joint4_position_controller:
     type: effort_controllers/JointPositionController
     joint: joint_4
+    pid: {p: 0.50, i: 0.01, d: 0.25}
+  joint6_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: joint_6
+    pid: {p: 0.50, i: 0.01, d: 0.25}
+  joint7_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: joint_7
     pid: {p: 0.50, i: 0.01, d: 0.25}

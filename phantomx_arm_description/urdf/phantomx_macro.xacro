@@ -191,6 +191,7 @@
             <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005" />
          </inertial>
       </link>
+
       <!-- joints -->
       <joint name="arm_base_joint" type="fixed">
          <origin xyz="${M_SCALE*12.25} ${M_SCALE*0.2} ${M_SCALE*0.2}" rpy="${M_PI*0} ${M_PI*0} ${-M_PI/2}" />
@@ -233,19 +234,19 @@
          <axis xyz="0 1 0" />
          <limit lower="-0.31" upper="0.1" effort="13" velocity="0.5" />
       </joint>
-      <joint name="joint_6" type="fixed">
+      <joint name="joint_6" type="prismatic">
          <origin xyz="${M_SCALE*3.5} ${M_SCALE*0} ${M_SCALE*0}" rpy="${-M_PI*1.5} ${M_PI*2} ${M_PI/2}" />
          <parent link="link_5" />
          <child link="link_6" />
          <axis xyz="0 0 1" />
-         <limit lower="-0.31" upper="0.1" effort="13" velocity="0.5" />
+         <limit lower="-0.02" upper="0.0" effort="13" velocity="0.5" />
       </joint>
-      <joint name="joint_7" type="fixed">
+      <joint name="joint_7" type="prismatic">
          <origin xyz="${M_SCALE*-3.5} ${M_SCALE*0} ${M_SCALE*0}" rpy="${-M_PI*1.5} ${M_PI*2} ${-M_PI/2}" />
          <parent link="link_5" />
          <child link="link_7" />
          <axis xyz="0 0 1" />
-         <limit lower="-0.31" upper="0.1" effort="13" velocity="0.5" />
+         <limit lower="-0.02" upper="0.0" effort="13" velocity="0.5" />
       </joint>
    </xacro:macro>
 
@@ -297,7 +298,8 @@
     </actuator>
   </transmission>
 
- <!-- transmission name="tran5">
+ <!-- hardware_interface::EffortJointInterface provides an appropriate hardware interface for our PhantomX Arm-->
+ <transmission name="tran5">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="joint_6">
 	<hardwareInterface>EffortJointInterface</hardwareInterface>
@@ -308,6 +310,7 @@
     </actuator>
   </transmission>
 
+ <!-- hardware_interface::EffortJointInterface provides an appropriate hardware interface for our PhantomX Arm-->
  <transmission name="tran6">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="joint_7">
@@ -317,7 +320,6 @@
       <hardwareInterface>EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
     </actuator>
-  </transmission -->
+  </transmission>
 
 </robot>
-
