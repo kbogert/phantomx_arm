@@ -5,8 +5,11 @@
   <!-- The name of the parameter under which the URDF is loaded -->
   <arg name="robot_description" default="robot_description"/>
 
+  <!-- The Robot specific namespace -->
+  <arg name="robot_namespace" default="Maulesh" />
+
   <!-- Load universal robot description format (URDF) -->
-  <param if="$(arg load_robot_description)" name="$(arg robot_description)" command="$(find xacro)/xacro.py '$(find phantomx_arm_turtlebot_description)/robots/kobuki_hexagons_kinect.urdf.xacro'"/>
+  <param if="$(arg load_robot_description)" name="$(arg robot_description)" command="$(find xacro)/xacro.py '$(find phantomx_arm_turtlebot_description)/robots/kobuki_hexagons_kinect.urdf.xacro' prefix:=$(arg robot_namespace)"/>
 
   <!-- The semantic description that corresponds to the URDF -->
   <param name="$(arg robot_description)_semantic" textfile="$(find phantomx_arm_turtlebot_moveit_config)/config/turtlebot.srdf" />

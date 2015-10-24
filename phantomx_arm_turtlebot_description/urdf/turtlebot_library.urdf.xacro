@@ -15,6 +15,10 @@
   <!-- 3D Sensors -->
   <xacro:include filename="$(find phantomx_arm_turtlebot_description)/urdf/sensors/kinect.urdf.xacro"/>
   <xacro:include filename="$(find phantomx_arm_turtlebot_description)/urdf/sensors/asus_xtion_pro.urdf.xacro"/>
+  
   <!-- PhantomX Arm -->
- <xacro:include filename="$(find phantomx_arm_description)/urdf/phantomx.xacro"/>
+  <!-- For convenience and effective use of multiple namespaces, this call has been moved to kobuki_hexagons_kinect.urdf.xacro -->
+  <!-- xacro:include filename="$(find phantomx_arm_description)/urdf/${prefix}.xacro"/ -->
+ 
 </robot>
+

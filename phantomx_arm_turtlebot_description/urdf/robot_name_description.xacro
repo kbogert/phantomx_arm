@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+	<!-- Add the Robot Name for Gazebo Namespace reference  -->
+	<xacro:property name="robot_name" value="$(arg prefix)" />
+	
+</robot>
