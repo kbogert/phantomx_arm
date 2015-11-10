@@ -1,0 +1,39 @@
+# Controller for executing joint-space trajectories on a group of joints
+# Trajectories are specified as a set of waypoints to be reached at specific time instants, which the controller attempts to execute
+# The controller exposes a control_msgs::FollowJointTrajectoryAction interface in the follow_joint_trajectory namespace of the controller
+
+Maulesh/phantomx_arm:
+  # Publish all joint states -----------------------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50  
+
+  # Publish Arm Controller Trajectories  -----------------------------------
+  arm_controller:
+    type: effort_controllers/JointTrajectoryController
+    action_ns: follow_joint_trajectory
+    default: true
+    joints:
+      - joint_1
+      - joint_2
+      - joint_3
+      - joint_4 
+  
+    gains: # Required because we're controlling an effort interface
+      joint_1: {p: 0.50, i: 0.01, d: 0.25, i_clamp: 1}
+      joint_2: {p: 0.50, i: 0.01, d: 0.25, i_clamp: 1}
+      joint_3: {p: 0.50, i: 0.01, d: 0.25, i_clamp: 1}
+      joint_4: {p: 0.50, i: 0.01, d: 0.25, i_clamp: 1}
+  
+  # Publish Gripper Controller States --------------------------------------
+  gripper_controller_right:
+    type: effort_controllers/JointPositionController
+    joint: joint_6
+    pid: {p: 0.50, i: 0.01, d: 0.25}
+
+  # Publish Gripper Controller States --------------------------------------
+  gripper_controller_left:
+    type: effort_controllers/JointPositionController
+    joint: joint_7
+    pid: {p: 0.50, i: 0.01, d: 0.25}
+

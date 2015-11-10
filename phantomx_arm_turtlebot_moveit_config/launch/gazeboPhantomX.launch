@@ -25,6 +25,9 @@
   <param name="robot_description"
 	 command="$(find xacro)/xacro.py '$(find phantomx_arm_turtlebot_description)/robots/kobuki_hexagons_kinect.urdf.xacro' prefix:=$(arg namespace)"/>
 
+  <!-- Joint limits -->
+  <rosparam file="$(find phantomx_arm_turtlebot_moveit_config)/config/joint_limits.yaml" command="load"/>
+
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
 	args="-urdf -model phantomx_arm -param robot_description"/>

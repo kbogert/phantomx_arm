@@ -1,14 +1,15 @@
 controller_list:
-  - name: arm_controller
-    action_ns: follow_joint_trajectory
+  # Controller for executing joint-space trajectories on a group of joints  on the "Gazebo Robot" & the "Physical Robot"
+  - name: Maulesh/phantomx_arm/arm_controller
     type: FollowJointTrajectory
+    action_ns: follow_joint_trajectory
     default: true
     joints:
       - joint_1
       - joint_2
       - joint_3
       - joint_4 
-  - name: gripper_controller
+  - name: Maulesh/phantomx_arm/gripper_controller
     type: GripperCommand
     action_ns: gripper_action
     default: true
