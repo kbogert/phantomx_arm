@@ -23,11 +23,16 @@
       -->
       <gazebo>
      	 <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-           <robotNamespace>/${prefix}/phantomx_arm</robotNamespace>
+           <!-- robotNamespace>/${prefix}/phantomx_arm</robotNamespace-->
 	   <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
      	 </plugin>
       </gazebo>
-   
+
+      <!--gazebo reference="link_7">
+     	 <plugin name="model_push" filename="libmodel_push.so">
+     	 </plugin>
+      </gazebo-->
+  
       <!-- links -->
       <link name="arm_base_link">
          <visual>
@@ -168,6 +173,7 @@
             <mass value="0.005" />
             <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005" />
          </inertial>
+	 
       </link>
        <link name="link_7">
          <visual>
@@ -211,42 +217,43 @@
          <parent link="link_1" />
          <child link="link_2" />
          <axis xyz="0 0 1" />
-         <limit lower="-2.617" upper="2.617" effort="3" velocity="1.571" />
+         <limit lower="-2.617" upper="2.617" effort="3" velocity="1.071" />
       </joint>
       <joint name="joint_3" type="revolute">
          <origin xyz="${M_SCALE*0} ${M_SCALE*10.67} ${M_SCALE*0}" rpy="0 0 0" />
          <parent link="link_2" />
          <child link="link_3" />
          <axis xyz="0 0 1" />
-         <limit lower="-2.617" upper="2.617" effort="3" velocity="1.571" />
+         <limit lower="-2.617" upper="2.617" effort="3" velocity="1.071" />
       </joint>
       <joint name="joint_4" type="revolute">
          <origin xyz="${M_SCALE*0} ${M_SCALE*10.67} ${M_SCALE*0}" rpy="${M_PI*2} ${M_PI*2} 0" />
          <parent link="link_3" />
          <child link="link_4" />
          <axis xyz="0 0 1" />
-         <limit lower="-1.745" upper="1.745" effort="13" velocity="1.571" />
+         <limit lower="-1.745" upper="1.745" effort="13" velocity="1.071" />
       </joint>
       <joint name="joint_5" type="fixed">
          <origin xyz="${M_SCALE*0} ${M_SCALE*7} ${M_SCALE*0}" rpy="${-M_PI/2} ${-M_PI/2} ${M_PI*0}" />
          <parent link="link_4" />
          <child link="link_5" />
          <axis xyz="0 1 0" />
-         <limit lower="-0.31" upper="0.1" effort="13" velocity="0.5" />
+         <limit lower="-0.31" upper="0.1" effort="13" velocity="0.065" />
       </joint>
       <joint name="joint_6" type="prismatic">
          <origin xyz="${M_SCALE*3.5} ${M_SCALE*0} ${M_SCALE*0}" rpy="${-M_PI*1.5} ${M_PI*2} ${M_PI/2}" />
          <parent link="link_5" />
          <child link="link_6" />
          <axis xyz="0 0 1" />
-         <limit lower="-0.02" upper="0.0" effort="13" velocity="0.5" />
+         <limit lower="-0.02" upper="0.0" effort="3" velocity="0.065" />
+	 <mimic joint="joint_7" multiplier="-1" offset="0"/>
       </joint>
       <joint name="joint_7" type="prismatic">
          <origin xyz="${M_SCALE*-3.5} ${M_SCALE*0} ${M_SCALE*0}" rpy="${-M_PI*1.5} ${M_PI*2} ${-M_PI/2}" />
          <parent link="link_5" />
          <child link="link_7" />
          <axis xyz="0 0 1" />
-         <limit lower="-0.02" upper="0.0" effort="13" velocity="0.5" />
+         <limit lower="-0.02" upper="0.0" effort="3" velocity="0.065" />
       </joint>
    </xacro:macro>
 
