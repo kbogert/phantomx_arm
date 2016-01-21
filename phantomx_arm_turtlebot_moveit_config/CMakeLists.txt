@@ -69,9 +69,9 @@ add_executable(kinematicSolver src/kinematicSolver.cpp)
 target_link_libraries(kinematicSolver ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 add_dependencies(kinematicSolver phantomx_arm_turtlebot_moveit_config_generate_messages_cpp)
 
-add_executable(pickANDplace src/PicknPlace/nodes/pickANDplace.cpp)
-target_link_libraries(pickANDplace ${catkin_LIBRARIES} ${Boost_LIBRARIES})
-add_dependencies(pickANDplace phantomx_arm_turtlebot_moveit_config_generate_messages_cpp)
+add_executable(pickANDplace_trial src/PicknPlace/tasks/pickANDplace_trial.cpp src/PicknPlace/nodes/pickANDplace.cpp)
+target_link_libraries(pickANDplace_trial ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+add_dependencies(pickANDplace_trial phantomx_arm_turtlebot_moveit_config_generate_messages_cpp)
 
 add_library(hello_world SHARED src/Gazebo_Plugins/hello_world.cc)
 target_link_libraries(hello_world ${GAZEBO_LIBRARIES})
