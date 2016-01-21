@@ -2,8 +2,23 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
    <property name="M_PI" value="3.14159"/>
    <property name="M_SCALE" value="0.01"/>
+   <property name="Camera_X" value="-0.03"/>
+   <property name="Camera_Y" value="-0.0155"/>
+   <property name="Camera_Z" value="-0.0087"/> 
+   
+   <!-- Constants for robot dimensions -->
+   <xacro:property name="PI" value="3.1415926535897931"/>
+   <xacro:property name="mass" value="1" /> <!-- arbitrary value for mass -->
+   <xacro:property name="width" value="0.1" /> <!-- Square dimensions (widthxwidth) of beams -->
+   <xacro:property name="height1" value="2" /> <!-- Link 1 -->
+   <xacro:property name="height2" value="1" /> <!-- Link 2 -->
+   <xacro:property name="height3" value="1" /> <!-- Link 3 -->
+   <xacro:property name="phantomx_camera_link_size" value="0.01" /> <!-- Size of square 'camera' box -->
+   <xacro:property name="axel_offset" value="0.05" /> <!-- Space btw top of beam and the each joint -->
+ 
    <xacro:include filename="$(find phantomx_arm_description)/urdf/common_materials.xacro" />
    <xacro:include filename="$(find phantomx_arm_description)/urdf/robot_name_description.xacro" />
+   <xacro:include filename="$(find phantomx_arm_description)/urdf/phantomx.gazebo" />
 
    <!--link name="plate_top_link"/-->
    <!--joint name="fixed" type="fixed">
@@ -23,17 +38,35 @@
       -->
       <gazebo>
      	 <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-           <!-- robotNamespace>/${prefix}/phantomx_arm</robotNamespace-->
+           <robotNamespace>/${prefix}/phantomx_arm</robotNamespace>
 	   <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
      	 </plugin>
       </gazebo>
 
-      <!--gazebo reference="link_7">
-     	 <plugin name="model_push" filename="libmodel_push.so">
-     	 </plugin>
-      </gazebo-->
-  
       <!-- links -->
+    
+      <!-- Camera -->
+      <link name="phantomx_camera_link">
+    	 <collision>
+           <origin xyz="${Camera_X} ${Camera_Y} ${Camera_Z}" rpy="0 0 0"/>
+           <geometry>
+    	     <sphere radius="${phantomx_camera_link_size}"/>
+           </geometry>
+         </collision>
+
+         <visual>
+            <origin xyz="${Camera_X} ${Camera_Y} ${Camera_Z}" rpy="0 0 0"/>
+            <geometry>
+              <sphere radius="${phantomx_camera_link_size}"/>
+            </geometry>
+         </visual>
+
+         <inertial>
+            <mass value="1e-5" />
+            <origin xyz="${Camera_X} ${Camera_Y} ${Camera_Z}" rpy="0 0 0"/>
+            <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    	 </inertial>
+      </link>
       <link name="arm_base_link">
          <visual>
             <origin xyz="${M_SCALE*10} ${M_SCALE*10} ${M_SCALE*0}" rpy="${M_PI*0} ${M_PI*0} ${M_PI}" />
@@ -199,6 +232,12 @@
       </link>
 
       <!-- joints -->
+      <joint name="phantomx_camera_joint" type="fixed">
+    	 <axis xyz="0 1 0" />
+    	 <origin xyz="0.1 -0.075 0.025" rpy="0 0 0"/>
+    	 <parent link="plate_top_link"/>
+         <child link="phantomx_camera_link"/>
+      </joint>
       <joint name="arm_base_joint" type="fixed">
          <origin xyz="${M_SCALE*12.25} ${M_SCALE*0.2} ${M_SCALE*0.2}" rpy="${M_PI*0} ${M_PI*0} ${-M_PI/2}" />
          <parent link="plate_top_link" />

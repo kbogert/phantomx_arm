@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>ITY</author>
+      <authoring_tool>3dsMax 11 - Feeling ColladaMax v3.05B.</authoring_tool>
+      <comments>ColladaMax Export Options: ExportNormals=1;ExportEPolyAsTriangles=1;ExportXRefs=1;ExportSelected=0;ExportTangents=1;ExportAnimations=0;SampleAnim=0;ExportAnimClip=0;BakeMatrices=0;ExportRelativePaths=1;AnimStart=0;AnimEnd=3.33333;</comments>
+      <source_data>file:///Z:/Service_2007/Virtools/Users/Balay/Set/Studio/sources/DefaultStage/Models/Max/Cube.max</source_data>
+    </contributor>
+    <created>2010-03-18T10:20:47Z</created>
+    <modified>2010-03-18T10:20:48Z</modified>
+    <unit meter="1" name="meter"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_materials>
+    <material id="BodyMat" name="BodyMat">
+      <instance_effect url="#BodyMat-fx"/>
+    </material>
+  </library_materials>
+  <library_effects>
+    <effect id="BodyMat-fx" name="BodyMat">
+      <profile_COMMON>
+        <technique sid="common">
+          <blinn>
+            <ambient>
+              <color>0.588235 0.588235 0.588235 1</color>
+            </ambient>
+            <diffuse>
+              <color>0.588235 0.588235 0.588235 1</color>
+            </diffuse>
+            <specular>
+              <color>0.9 0.9 0.9 1</color>
+            </specular>
+            <shininess>
+              <float>0.415939</float>
+            </shininess>
+            <reflective>
+              <color>0 0 0 1</color>
+            </reflective>
+            <reflectivity>
+              <float>1</float>
+            </reflectivity>
+            <transparent opaque="A_ONE">
+              <color>1 1 1 1</color>
+            </transparent>
+            <transparency>
+              <float>1</float>
+            </transparency>
+          </blinn>
+          <extra>
+            <technique profile="FCOLLADA">
+              <spec_level>
+                <float>0</float>
+              </spec_level>
+              <emission_level>
+                <float>0</float>
+              </emission_level>
+            </technique>
+          </extra>
+        </technique>
+      </profile_COMMON>
+      <extra>
+        <technique profile="MAX3D">
+          <faceted>0</faceted>
+          <double_sided>0</double_sided>
+          <wireframe>0</wireframe>
+          <face_map>0</face_map>
+        </technique>
+      </extra>
+    </effect>
+  </library_effects>
+  <library_geometries>
+    <geometry id="Body-mesh" name="Body">
+      <mesh>
+        <source id="Body-mesh-positions">
+          <float_array id="Body-mesh-positions-array" count="24">-0.4 -0.4 0 0.4 -0.4 0 -0.4 0.4 0 0.4 0.4 0 -0.4 -0.4 0.8 0.4 -0.4 0.8 -0.4 0.4 0.8 0.4 0.4 0.8</float_array>
+          <technique_common>
+            <accessor source="#Body-mesh-positions-array" count="8" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Body-mesh-normals">
+          <float_array id="Body-mesh-normals-array" count="72">0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 1 0 0 1 0 0 1 0 0 1 0 -1 0 0 -1 0 0 -1 0 0 -1 0 1 0 0 1 0 0 1 0 0 1 0 0 0 1 0 0 1 0 0 1 0 0 1 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0</float_array>
+          <technique_common>
+            <accessor source="#Body-mesh-normals-array" count="24" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Body-mesh-map-channel1">
+          <float_array id="Body-mesh-map-channel1-array" count="36">0 0 0 1 0 0 0 1 0 1 1 0 0 0 0 1 0 0 0 1 0 1 1 0 0 0 0 1 0 0 0 1 0 1 1 0</float_array>
+          <technique_common>
+            <accessor source="#Body-mesh-map-channel1-array" count="12" stride="3">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+              <param name="P" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Body-mesh-map-channel1-tangents">
+          <float_array id="Body-mesh-map-channel1-tangents-array" count="12">1 0 0 -1 0 0 0 -1 0 0 1 0</float_array>
+          <technique_common>
+            <accessor source="#Body-mesh-map-channel1-tangents-array" count="4" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Body-mesh-map-channel1-binormals">
+          <float_array id="Body-mesh-map-channel1-binormals-array" count="6">0 -1 0 0 0 -1</float_array>
+          <technique_common>
+            <accessor source="#Body-mesh-map-channel1-binormals-array" count="2" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Body-mesh-vertices">
+          <input semantic="POSITION" source="#Body-mesh-positions"/>
+        </vertices>
+        <triangles material="BodyMat" count="12">
+          <input semantic="VERTEX" source="#Body-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Body-mesh-normals" offset="1"/>
+          <input semantic="TEXCOORD" source="#Body-mesh-map-channel1" offset="2" set="1"/>
+          <input semantic="TEXTANGENT" source="#Body-mesh-map-channel1-tangents" offset="3" set="1"/>
+          <input semantic="TEXBINORMAL" source="#Body-mesh-map-channel1-binormals" offset="4" set="1"/>
+          <p>0 0 9 0 0 2 1 11 0 0 3 2 10 0 0 3 2 10 0 0 1 3 8 0 0 0 0 9 0 0 4 4 8 1 0 5 5 9 1 0 7 6 11 1 0 7 6 11 1 0 6 7 10 1 0 4 4 8 1 0 0 8 4 1 1 1 9 5 1 1 5 10 7 1 1 5 10 7 1 1 4 11 6 1 1 0 8 4 1 1 1 12 0 2 1 3 13 1 2 1 7 14 3 2 1 7 14 3 2 1 5 15 2 2 1 1 12 0 2 1 3 16 4 0 1 2 17 5 0 1 6 18 7 0 1 6 18 7 0 1 7 19 6 0 1 3 16 4 0 1 2 20 0 3 1 0 21 1 3 1 4 22 3 3 1 4 22 3 3 1 6 23 2 3 1 2 20 0 3 1</p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_visual_scenes>
+    <visual_scene id="Cube.max" name="Cube_max">
+      <node id="Body-node" name="Body" type="NODE">
+        <translate>0 0 0</translate>
+        <scale>0.8 0.8 0.8</scale>
+        <instance_geometry url="#Body-mesh">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="BodyMat" target="#BodyMat"/>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+      <extra>
+        <technique profile="FCOLLADA">
+          <start_time>0</start_time>
+          <end_time>3.33333</end_time>
+        </technique>
+      </extra>
+      <extra>
+        <technique profile="MAX3D">
+          <frame_rate>30</frame_rate>
+        </technique>
+      </extra>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Cube.max"/>
+  </scene>
+</COLLADA>
