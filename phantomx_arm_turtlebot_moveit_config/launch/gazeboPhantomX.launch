@@ -30,7 +30,7 @@
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-	args="-x 4.54 -y 3.66 -z 0 -Y -80.1 -urdf -model phantomx_arm -param robot_description"/>
+	args="-x 3.775 -y 3.66 -z 0 -Y -80.1 -urdf -model phantomx_arm -param robot_description"/>
 
   <!-- Fake laser -->
   <node pkg="nodelet" type="nodelet" name="laserscan_nodelet_manager" args="manager"/>

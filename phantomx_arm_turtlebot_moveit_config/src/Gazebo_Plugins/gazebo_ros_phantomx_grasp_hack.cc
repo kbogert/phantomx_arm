@@ -28,7 +28,9 @@ namespace gazebo
     {
 	 
       math::Pose _pose;
-      if(this->model->GetWorld()->GetModelCount() == 8 && this->flag == false)
+
+      // Remember to update the Model Count or else Gazebo will crash
+      if(this->model->GetWorld()->GetModelCount() == 10 && this->flag == false)
       {
         const std::string &_nameModel = "phantomx_arm";
     	this->phantomxModel = this->model->GetWorld()->GetModel(_nameModel);
@@ -37,10 +39,16 @@ namespace gazebo
         const std::string &_name1 = "link_7";
         this->link_5 = this->phantomxModel->GetLink(_name1); 
 	this->flag = true;
-	
+
+        const std::string &cube_2 = "Cube_2";
+    	this->cube_2 = this->model->GetWorld()->GetModel(cube_2);
+        const std::string &_name2 = "cube_2";
+        this->cube_2_ptr = this->cube_2->GetLink(_name2); 
+
 	_pose.Set(4.54, 4.0, 0.9,  0.0, 0.0, 0.0);
-	this->cube_1->SetWorldPose(_pose);
+	this->cube_2_ptr->SetWorldPose(_pose);
 	this->increment = 4.54;
+
       }
 
 
@@ -116,6 +124,9 @@ namespace gazebo
     // Pointer to the Phantomx model
     private: physics::ModelPtr phantomxModel;
 
+    // Pointer to the Phantomx model
+    private: physics::ModelPtr cube_2;
+
     // Pointer to the New model
     private: physics::JointPtr myJoint;
 
@@ -124,6 +135,9 @@ namespace gazebo
 
     // Pointer to the Cube model
     private: physics::LinkPtr cube_1;
+
+    // Pointer to the Cube model
+    private: physics::LinkPtr cube_2_ptr;
 
     // Pointer to the update event connection
     private: event::ConnectionPtr updateConnection;
