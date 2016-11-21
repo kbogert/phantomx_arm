@@ -1,4 +1,4 @@
-IMPORTANT: This Library was developed as part of a Masters Thesis on Inverse Learning of Robot Behavior for Ad-Hoc Teamwork. The Machine Learning part of the code, as well the experimental setup for this research is not publicly available.
+IMPORTANT: This Library was developed as part of a Masters Thesis on Inverse Reinforcement Learning for Multi-Robot coordination in an Ad-Hoc setting. The Machine Learning part of the code, as well the experimental setup for this research is not publicly available.
 
 phantomx_arm turtlebot Library
 (Launch files marked by * (and the subsequent source files) are not uploaded due to privacy issues)
