@@ -11,5 +11,6 @@
 	<!-- approximations -->
 	<xacro:property name="color_black"    value="0.15 0.15 0.15 1.0" />
 	<xacro:property name="color_greyish"  value="0.75 0.75 0.75 1.0" />
+	<xacro:property name="color_camera"  value="0.175 0.75 0.19 1.0" />
 
 </robot>

@@ -4,14 +4,8 @@
     <arg name="load_robot_description" value="true"/>
   </include>
 
-  <node name="kinematicSolver" pkg="phantomx_arm_turtlebot_moveit_config" type="kinematicSolver" respawn="false" output="screen" args="0.222 0.001 0.457">
+  <node name="pickANDplace" pkg="phantomx_arm_turtlebot_moveit_config" type="pickANDplace_trial" respawn="false" output="screen">
     <rosparam command="load" file="$(find phantomx_arm_turtlebot_moveit_config)/config/kinematics.yaml"/>
   </node>
 
 </launch>
-
-<!-- IK Test Points -->
-<!-- 0.067 0.0 0.82 -->
-<!-- 0.326 0.001 0.457 -->
-<!-- 0.125 0.001 0.657 -->
-<!-- 0.222 0.001 0.457 -->

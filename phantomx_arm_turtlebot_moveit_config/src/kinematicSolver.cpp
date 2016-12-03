@@ -12,6 +12,7 @@
 #include <control_msgs/FollowJointTrajectoryGoal.h>
 #include <trajectory_msgs/JointTrajectoryPoint.h>
 
+// TODO Get IK to run on Gazebo and Physical Robot (it works with RViz) using Planning Scene Interface -- It is a much more robust interface for MoveIt IK and Motion Planning
 using namespace std;
 
 std::map <string, double> curr_joint_values;
@@ -19,31 +20,42 @@ bool flag = true;
 
 void getJointStates(const sensor_msgs::JointStatePtr& msg)
 {
-	if(flag == true)
+	for(int jointList=0; jointList < msg->name.size(); jointList++)
 	{
-		for(int jointList=0; jointList < msg->name.size(); jointList++)
-		{
-			curr_joint_values[msg->name[jointList]] = msg->position[jointList];
-			ROS_INFO("RECEIVE %s -> %f ", msg->name[jointList].c_str(), msg->position[jointList]);
-		}
-		flag = false;
+		curr_joint_values[msg->name[jointList]] = msg->position[jointList];
+		//ROS_INFO("RECEIVE %s -> %f ", msg->name[jointList].c_str(), msg->position[jointList]);
 	}
-
+	//flag = false;
+	
 	return;
 }
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
+
+	cout << "Starting ROS Node: " << argv[ 0 ]
+       << "\nSolving IK for the Pick Up Location: [ ";
+
+    std::vector<double> pickup_coordinates;
+	
+    for (int n = 1; n <= 3; n++)
+    {
+    	double loc = atof(argv[ n ]);
+    	cout << argv[ n ] << " ";
+    	pickup_coordinates.push_back(loc);
+    }
+    cout << "]\n";
+
 	ros::init (argc, argv, "kinematicSolver");
 	ros::NodeHandle node_handle("~");
-	ros::Publisher arm_publisher = node_handle.advertise<control_msgs::FollowJointTrajectoryActionGoal>("/arm_controller/follow_joint_trajectory/goal", 1, true);
+	ros::Publisher arm_publisher = node_handle.advertise<control_msgs::	FollowJointTrajectoryActionGoal>("/Maulesh/phantomx_arm/arm_controller/follow_joint_trajectory/goal", 1, true);
 
-	ros::Subscriber joints = node_handle.subscribe("/joint_states", 1000, getJointStates);
+	ros::Subscriber joints = node_handle.subscribe("/Maulesh/phantomx_arm/joint_states", 1000, getJointStates);
 
 	ros::AsyncSpinner spinner(1);
 	spinner.start();
 
-	ros::WallDuration sleep_time(2.0);
+	ros::WallDuration sleep_time(1.0);
 	sleep_time.sleep();
 
 	ROS_INFO("Model frame: ");
@@ -81,7 +93,7 @@ int main(int argc, char **argv)
 	control_msgs::FollowJointTrajectoryActionGoal action;
 
 	trajectory_msgs::JointTrajectoryPoint currPoint;
-	currPoint.time_from_start = ros::Duration(0.0);
+	currPoint.time_from_start = ros::Duration(0.1);
 
 	ros::Time begin = ros::Time::now();
 
@@ -93,15 +105,19 @@ int main(int argc, char **argv)
 
 	//std::string timeString = std::to_string(begin.toSec());
 
+	double sec = begin.sec + begin.nsec/10000000.0;
+	
+	char buffer[256];
+	std::snprintf(buffer, sizeof(buffer), "/move_arm-1-%g", sec);
 
-	action.goal_id.id = "/move_arm-1-";
+	action.goal_id.id = string(buffer);
 
 	for(std::size_t i=0; i < joint_names.size()-2; ++i)
 	{
 		// ROS_INFO("Joint %s: %f", joint_names[i].c_str(), joint_values[i]);
 		currPoint.positions.push_back(joint_values[i]);
-//		currPoint.velocities.push_back(0);
-//		currPoint.accelerations.push_back(1);
+		currPoint.velocities.push_back(0);
+		currPoint.accelerations.push_back(0);
 
 		action.goal.trajectory.joint_names.push_back(joint_names[i+1]);
 	}
@@ -133,9 +149,15 @@ int main(int argc, char **argv)
 	kinematic_state->setToRandomPositions(joint_model_group);
 //	const Eigen::Affine3d &end_effector_state = kinematic_state->getGlobalLinkTransform("link_5");
 
+/*	std::vector<double> pickup_coordinates;
+	pickup_coordinates.push_back(0.326);
+	pickup_coordinates.push_back(0.001);
+	pickup_coordinates.push_back(0.457);
+*/
+
 	Eigen::Affine3d end_effector_state = Eigen::Transform<double,3,Eigen::Affine>::Identity();
-//	end_effector_state *= Eigen::Translation<double,3>(0.08,0.0,0.82);
-	end_effector_state *= Eigen::Translation<double,3>(0.08, 0.0, 0.82);
+//	end_effector_state *= Eigen::Translation<double,3>(0.067, 0.0, 0.82);
+	end_effector_state *= Eigen::Translation<double,3>(pickup_coordinates[0], pickup_coordinates[1], pickup_coordinates[2]);
 
 	geometry_msgs::PoseStamped pose_1;
 	geometry_msgs::Pose pose;
@@ -165,8 +187,16 @@ int main(int argc, char **argv)
 	ROS_INFO_STREAM("Rotation Y: " << pose.orientation.y);
 	ROS_INFO_STREAM("Rotation Z: " << pose.orientation.z);
 
+	int count=0;
 
 	bool found_ik = kinematic_state->setFromIK(joint_model_group, end_effector_state, 10, 0.1);
+
+	while(found_ik == false && count<5)
+	{
+		ROS_INFO("Looking for an IK Solution!! ");
+		found_ik = kinematic_state->setFromIK(joint_model_group, end_effector_state, 10, 0.1);
+		count++;
+	}
 
 	// Now, we can print out the IK solution (if found):
 	if (found_ik)
@@ -196,8 +226,8 @@ int main(int argc, char **argv)
 			{
 				// ROS_INFO("Joint %s: %f", joint_names[i].c_str(), joint_values[i]);
 				point.positions.push_back(joint_values[i]);
-//				point.velocities.push_back(1);
-//				point.accelerations.push_back(1);
+				point.velocities.push_back(0);
+				point.accelerations.push_back(0);
 
 			}
 
@@ -212,7 +242,6 @@ int main(int argc, char **argv)
 	{
 		ROS_INFO("Did not find IK solution");
 	}
-
 
 	sleep_time.sleep();
 

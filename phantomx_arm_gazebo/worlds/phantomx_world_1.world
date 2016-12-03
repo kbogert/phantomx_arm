@@ -12,11 +12,11 @@
       <uri>model://sun</uri>
     </include>
 
-    <!-- Table 1-->  
+    <!-- Table -->  
     <model name="PickUp_Table">
       <pose>4.5 4 0  0 0 0</pose>
       <static>true</static>
-      <link name="table_1">
+      <link name="table">
  	
 	<collision name="collision">
           <geometry>
@@ -39,35 +39,6 @@
       </link>
     </model>
 
-    <!-- Table 2-->  
-    <model name="Drop_Table">
-      <pose>3.35 4 0  0 0 0</pose>
-      <static>true</static>
-      <link name="table_2">
- 	
-	<collision name="collision">
-          <geometry>
-            <mesh>
-		<scale>0.65 0.75 0.9</scale>
-		<uri>model://Slab.dae</uri>
-	    </mesh>
-	  </geometry>
-        </collision>
-
-        <visual name="visual">
-          <geometry>
-            <mesh>
-		<scale>0.65 0.75 0.9</scale>
-		<uri>model://Slab.dae</uri>
-	    </mesh>
-	  </geometry>
-
-        </visual>
-      </link>
-    </model>
-
-    <!-- We CANNOT use the Population Tag for Model Distribution because we wish to randomly population 'Colored' Models in a grid (i.e. >1 Model Files) -->
-    <!-- It seems that the drawback with the Population tag lies in the fact that we can use ONLY ONE Model File (.dae etc.) for the entire population -->
     <!-- Cube 1 -->  
     <model name="Cube_1">
       <pose>4.34 4 0.9  0 0 0</pose>
@@ -107,63 +78,20 @@
         </visual>
       </link>
       
-      <!-- plugin name="gazebo_ros_phantomx_grasp_hack" filename="libgazebo_ros_phantomx_grasp_hack.so"/ -->
-
-    </model>
-
-    <!-- Cube 2 -->  
-    <model name="Cube_2">
-      <pose>3.7 3.9 0.4205 0 0 0</pose>
-      <static>false</static>
-      <link name="cube_2">
-     
-      <inertial>
-        <mass>0.000001</mass>
-        <inertia> <!-- interias are tricky to compute -->
-          <!-- http://answers.gazebosim.org/question/4372/the-inertia-matrix-explained/ -->
-          <ixx>0.000001</ixx>       <!-- for a box: ixx = 0.083 * mass * (y*y + z*z) -->
-          <ixy>0.0</ixy>         <!-- for a box: ixy = 0 -->
-          <ixz>0.0</ixz>         <!-- for a box: ixz = 0 -->
-          <iyy>0.000001</iyy>       <!-- for a box: iyy = 0.083 * mass * (x*x + z*z) -->
-          <iyz>0.0</iyz>         <!-- for a box: iyz = 0 -->
-          <izz>0.000001</izz>       <!-- for a box: izz = 0.083 * mass * (x*x + y*y) -->
-        </inertia>
-      </inertial>
- 	
-	<collision name="collision">
-          <geometry>
-            <mesh>
-		<scale>0.025 0.025 0.075</scale>
-		<uri>model://Cube.dae</uri>
-	    </mesh>
-	  </geometry>
-        </collision>
-
-        <visual name="visual">
-          <geometry>
-            <mesh>
-		<scale>0.025 0.025 0.075</scale>
-		<uri>model://Cube.dae</uri>
-	    </mesh>
-	  </geometry>
-
-        </visual>
-      </link>
-      
-      <!-- plugin name="gazebo_ros_phantomx_grasp_hack" filename="libgazebo_ros_phantomx_grasp_hack.so"/-->
+      <plugin name="gazebo_ros_phantomx_grasp_hack" filename="libgazebo_ros_phantomx_grasp_hack.so"/>
 
     </model>
 
     <!-- Crate 1 -->  
     <model name="Droping_Crates_1">
-      <pose>3.775 3.9 0.4205 0 0 0</pose>
+      <pose>4.5 5 0  0 0 0</pose>
       <static>true</static>
       <link name="crate_1">
  	
 	<collision name="collision">
           <geometry>
             <mesh>
-		<scale>0.275 0.275 0.275</scale>
+		<scale>0.75 0.75 0.75</scale>
 		<uri>model://crate_1.dae</uri>
 	    </mesh>
 	  </geometry>
@@ -172,7 +100,7 @@
         <visual name="visual">
           <geometry>
             <mesh>
-		<scale>0.275 0.275 0.275</scale>
+		<scale>0.75 0.75 0.75</scale>
 		<uri>model://crate_1.dae</uri>
 	    </mesh>
 	  </geometry>
@@ -183,14 +111,14 @@
 
     <!-- Crate 2 -->  
     <model name="Droping_Crates_2">
-      <pose>3.35 4.1 0.4205 0 0 0</pose>
+      <pose>3.5 3 0  0 0 0</pose>
       <static>true</static>
       <link name="crate_2">
  	
 	<collision name="collision">
           <geometry>
             <mesh>
-		<scale>0.275 0.275 0.275</scale>
+		<scale>0.75 0.75 0.75</scale>
 		<uri>model://crate_2.dae</uri>
 	    </mesh>
 	  </geometry>
@@ -199,7 +127,7 @@
         <visual name="visual">
           <geometry>
             <mesh>
-		<scale>0.275 0.275 0.275</scale>
+		<scale>0.75 0.75 0.75</scale>
 		<uri>model://crate_2.dae</uri>
 	    </mesh>
 	  </geometry>
@@ -210,14 +138,14 @@
 
     <!-- Crate 3 -->  
     <model name="Droping_Crates_3">
-      <pose>2.93 3.9 0.4205 0 0 0</pose>
+      <pose>3.5 5 0  0 0 0</pose>
       <static>true</static>
       <link name="crate_3">
  	
 	<collision name="collision">
           <geometry>
             <mesh>
-		<scale>0.275 0.275 0.275</scale>
+		<scale>0.75 0.75 0.75</scale>
 		<uri>model://crate_3.dae</uri>
 	    </mesh>
 	  </geometry>
@@ -226,7 +154,7 @@
         <visual name="visual">
           <geometry>
             <mesh>
-		<scale>0.275 0.275 0.275</scale>
+		<scale>0.75 0.75 0.75</scale>
 		<uri>model://crate_3.dae</uri>
 	    </mesh>
 	  </geometry>

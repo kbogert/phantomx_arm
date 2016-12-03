@@ -1,0 +1,59 @@
+# Controller for executing joint-space trajectories on a group of joints
+# Trajectories are specified as a set of waypoints to be reached at specific time instants, which the controller attempts to execute
+# The controller exposes a control_msgs::FollowJointTrajectoryAction interface in the follow_joint_trajectory namespace of the controller
+
+Maulesh/phantomx_arm:
+  # Publish all joint states -----------------------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50  
+  
+  # Publish Arm Controller Trajectories  -----------------------------------
+  arm_controller:
+    type: effort_controllers/JointTrajectoryController
+    action_ns: follow_joint_trajectory
+    default: true
+    joints:
+      - joint_1
+      - joint_2
+      - joint_3
+      - joint_4 
+
+    constraints:
+      goal_time: 0.5                   # Override default
+      stopped_velocity_tolerance: 0.02 # Override default
+      joint_1:
+        trajectory: 0.05               # Not enforced if unspecified
+        goal: 0.02                     # Not enforced if unspecified
+      joint_2:
+        trajectory: 0.05               # Not enforced if unspecified
+        goal: 0.02                     # Not enforced if unspecified
+      joint_3:
+        trajectory: 0.05               # Not enforced if unspecified
+        goal: 0.02                     # Not enforced if unspecified
+      joint_4:
+        trajectory: 0.05               # Not enforced if unspecified
+        goal: 0.02                     # Not enforced if unspecified
+  
+    gains: # Required because we're controlling an effort interface
+      joint_1: {p: 0.20, i: 0.009, d: 0.2, i_clamp: 1}
+      joint_2: {p: 0.20, i: 0.009, d: 0.2, i_clamp: 1}
+      joint_3: {p: 0.20, i: 0.009, d: 0.2, i_clamp: 1}
+      joint_4: {p: 0.20, i: 0.009, d: 0.2, i_clamp: 1}
+  
+    state_publish_rate:  25            # Override default
+    action_monitor_rate: 30            # Override default
+    stop_trajectory_duration: 0        # Override default
+
+  # Publish Gripper Controller States --------------------------------------
+  gripper_controller_right:
+    type: effort_controllers/JointPositionController
+    joint: joint_6
+    pid: {p: 0.20, i: 0.009, d: 0.2}
+  
+  # Publish Gripper Controller States --------------------------------------
+  gripper_controller_left:
+    type: effort_controllers/JointPositionController
+    joint: joint_7
+    pid: {p: 0.20, i: 0.009, d: 0.2}
+

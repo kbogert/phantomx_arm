@@ -2,8 +2,23 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
    <property name="M_PI" value="3.14159"/>
    <property name="M_SCALE" value="0.01"/>
+   <property name="Camera_X" value="-0.03"/>
+   <property name="Camera_Y" value="-0.0155"/>
+   <property name="Camera_Z" value="-0.0087"/> 
+   
+   <!-- Constants for robot dimensions -->
+   <xacro:property name="PI" value="3.1415926535897931"/>
+   <xacro:property name="mass" value="1" /> <!-- arbitrary value for mass -->
+   <xacro:property name="width" value="0.1" /> <!-- Square dimensions (widthxwidth) of beams -->
+   <xacro:property name="height1" value="2" /> <!-- Link 1 -->
+   <xacro:property name="height2" value="1" /> <!-- Link 2 -->
+   <xacro:property name="height3" value="1" /> <!-- Link 3 -->
+   <xacro:property name="phantomx_camera_link_size" value="0.01" /> <!-- Size of square 'camera' box -->
+   <xacro:property name="axel_offset" value="0.05" /> <!-- Space btw top of beam and the each joint -->
+ 
    <xacro:include filename="$(find phantomx_arm_description)/urdf/common_materials.xacro" />
    <xacro:include filename="$(find phantomx_arm_description)/urdf/robot_name_description.xacro" />
+   <xacro:include filename="$(find phantomx_arm_description)/urdf/phantomx.gazebo" />
 
    <!--link name="plate_top_link"/-->
    <!--joint name="fixed" type="fixed">
@@ -27,8 +42,74 @@
 	   <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
      	 </plugin>
       </gazebo>
-   
+
       <!-- links -->
+    
+      <!-- Camera -->
+      <link name="phantomx_camera_link">
+    	 <collision>
+           <origin xyz="${Camera_X} ${Camera_Y} ${Camera_Z}" rpy="0 0 0"/>
+           <geometry>
+    	     <sphere radius="${phantomx_camera_link_size}"/>
+           </geometry>
+         </collision>
+
+         <visual>
+            <origin xyz="${Camera_X} ${Camera_Y} ${Camera_Z}" rpy="0 0 0"/>
+            <geometry>
+              <sphere radius="${phantomx_camera_link_size}"/>
+            </geometry>
+         </visual>
+
+         <inertial>
+            <mass value="1e-5" />
+            <origin xyz="${Camera_X} ${Camera_Y} ${Camera_Z}" rpy="0 0 0"/>
+            <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    	 </inertial>
+      </link>
+
+      <link name="phantomx_Flag_link_1">
+         <visual>
+            <origin xyz="0.1 0.1 0.2050" rpy="${M_PI*0} ${M_PI*0} ${M_PI}" />
+            <geometry>
+              <box size = "0.01 0.01 0.395" />
+            </geometry>
+	    <xacro:material_black />
+         </visual>
+         <collision> 
+            <origin xyz="0.1 0.1 0.2050" rpy="${M_PI*0} ${M_PI*0} ${M_PI}" />
+            <geometry>
+              <box size = "0.01 0.01 0.395" />
+            </geometry>
+         </collision>
+         <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+	    <mass value="0.005" />
+            <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005" />
+         </inertial>
+      </link>
+
+      <link name="phantomx_Flag_link_2">
+         <visual>
+            <origin xyz="0.09 0.1 0.35" rpy="${M_PI*0} ${M_PI*0} ${M_PI}" />
+            <geometry>
+              <box size = "0.15 0.01 0.1" />
+            </geometry>
+	    <xacro:material_black />
+         </visual>
+         <collision> 
+            <origin xyz="0.09 0.1 0.35" rpy="${M_PI*0} ${M_PI*0} ${M_PI}" />
+            <geometry>
+              <box size = "0.15 0.01 0.1" />
+            </geometry>
+         </collision>
+         <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+	    <mass value="0.005" />
+            <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005" />
+         </inertial>
+      </link>
+ 
       <link name="arm_base_link">
          <visual>
             <origin xyz="${M_SCALE*10} ${M_SCALE*10} ${M_SCALE*0}" rpy="${M_PI*0} ${M_PI*0} ${M_PI}" />
@@ -168,6 +249,7 @@
             <mass value="0.005" />
             <inertia ixx="0.005" ixy="0.0" ixz="0.0" iyy="0.005" iyz="0.0" izz="0.005" />
          </inertial>
+	 
       </link>
        <link name="link_7">
          <visual>
@@ -193,6 +275,24 @@
       </link>
 
       <!-- joints -->
+      <joint name="phantomx_camera_joint" type="fixed">
+    	 <axis xyz="0 1 0" />
+    	 <origin xyz="0.1 -0.075 0.025" rpy="0 0 0"/>
+    	 <parent link="plate_top_link"/>
+         <child link="phantomx_camera_link"/>
+      </joint>
+      <joint name="phantomx_Flag_joint_1" type="fixed">
+    	 <axis xyz="0 1 0" />
+    	 <origin xyz="-0.2 -0.1 -0.0087" rpy="0 0 0"/>
+    	 <parent link="plate_top_link"/>
+         <child link="phantomx_Flag_link_1"/>
+      </joint>
+      <joint name="phantomx_Flag_joint_2" type="fixed">
+    	 <axis xyz="0 1 0" />
+    	 <origin xyz="-0.27 -0.1 -0.0087" rpy="0 0 0"/>
+    	 <parent link="plate_top_link"/>
+         <child link="phantomx_Flag_link_2"/>
+      </joint> 
       <joint name="arm_base_joint" type="fixed">
          <origin xyz="${M_SCALE*12.25} ${M_SCALE*0.2} ${M_SCALE*0.2}" rpy="${M_PI*0} ${M_PI*0} ${-M_PI/2}" />
          <parent link="plate_top_link" />
@@ -211,42 +311,43 @@
          <parent link="link_1" />
          <child link="link_2" />
          <axis xyz="0 0 1" />
-         <limit lower="-2.617" upper="2.617" effort="3" velocity="1.571" />
+         <limit lower="-2.617" upper="2.617" effort="3" velocity="1.071" />
       </joint>
       <joint name="joint_3" type="revolute">
          <origin xyz="${M_SCALE*0} ${M_SCALE*10.67} ${M_SCALE*0}" rpy="0 0 0" />
          <parent link="link_2" />
          <child link="link_3" />
          <axis xyz="0 0 1" />
-         <limit lower="-2.617" upper="2.617" effort="3" velocity="1.571" />
+         <limit lower="-2.617" upper="2.617" effort="3" velocity="1.071" />
       </joint>
       <joint name="joint_4" type="revolute">
          <origin xyz="${M_SCALE*0} ${M_SCALE*10.67} ${M_SCALE*0}" rpy="${M_PI*2} ${M_PI*2} 0" />
          <parent link="link_3" />
          <child link="link_4" />
          <axis xyz="0 0 1" />
-         <limit lower="-1.745" upper="1.745" effort="13" velocity="1.571" />
+         <limit lower="-1.745" upper="1.745" effort="13" velocity="1.071" />
       </joint>
       <joint name="joint_5" type="fixed">
          <origin xyz="${M_SCALE*0} ${M_SCALE*7} ${M_SCALE*0}" rpy="${-M_PI/2} ${-M_PI/2} ${M_PI*0}" />
          <parent link="link_4" />
          <child link="link_5" />
          <axis xyz="0 1 0" />
-         <limit lower="-0.31" upper="0.1" effort="13" velocity="0.5" />
+         <limit lower="-0.31" upper="0.1" effort="13" velocity="0.065" />
       </joint>
       <joint name="joint_6" type="prismatic">
          <origin xyz="${M_SCALE*3.5} ${M_SCALE*0} ${M_SCALE*0}" rpy="${-M_PI*1.5} ${M_PI*2} ${M_PI/2}" />
          <parent link="link_5" />
          <child link="link_6" />
          <axis xyz="0 0 1" />
-         <limit lower="-0.02" upper="0.0" effort="13" velocity="0.5" />
+         <limit lower="-0.02" upper="0.0" effort="3" velocity="0.065" />
+	 <mimic joint="joint_7" multiplier="-1" offset="0"/>
       </joint>
       <joint name="joint_7" type="prismatic">
          <origin xyz="${M_SCALE*-3.5} ${M_SCALE*0} ${M_SCALE*0}" rpy="${-M_PI*1.5} ${M_PI*2} ${-M_PI/2}" />
          <parent link="link_5" />
          <child link="link_7" />
          <axis xyz="0 0 1" />
-         <limit lower="-0.02" upper="0.0" effort="13" velocity="0.5" />
+         <limit lower="-0.02" upper="0.0" effort="3" velocity="0.065" />
       </joint>
    </xacro:macro>
 
